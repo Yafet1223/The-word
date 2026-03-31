@@ -1,0 +1,60 @@
+const http = require("http");
+const fs = require("fs");
+const path = require("path");
+
+const filePath = path.join(__dirname, "data", "users.json");
+
+const server = http.createServer((req, res) => {
+
+    if (req.method === "GET" && req.url === "/") {
+        return res.end("Server is running");
+    }
+
+    if (req.method === "GET" && req.url === "/users") {
+        fs.readFile(filePath, "utf-8", (err, data) => {
+            if (err) {
+                res.statusCode = 500;
+                return res.end("Error reading users");
+            }
+
+            res.writeHead(200, { "Content-Type": "application/json" });
+            res.end(data);
+        });
+    }
+
+    else if (req.method === "POST" && req.url === "/users") {
+        let body = "";
+
+        req.on("data", chunk => body += chunk);
+
+        req.on("end", () => {
+            const newUser = JSON.parse(body);
+
+            fs.readFile(filePath, "utf-8", (err, data) => {
+                let users = JSON.parse(data || "[]");
+
+                newUser.id = users.length + 1;
+                users.push(newUser);
+
+                fs.writeFile(filePath, JSON.stringify(users), err => {
+                    if (err) {
+                        res.statusCode = 500;
+                        return res.end("Error saving user");
+                    }
+
+                    res.statusCode = 201;
+                    res.end("User added");
+                });
+            });
+        });
+    }
+
+    else {
+        res.statusCode = 404;
+        res.end("Not found");
+    }
+});
+
+server.listen(3000, () => {
+    console.log("Server running on port 3000");
+});

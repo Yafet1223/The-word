@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Word - Prayer Wall</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        .prayer { background: white; padding: 15px; margin: 10px 0; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .responses { margin-top: 10px; padding-left: 20px; border-left: 2px solid #ccc; }
+        .response { margin: 5px 0; font-style: italic; }
+        button { padding: 10px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .responseForm { margin-top: 10px; }
+        .responseForm textarea { width: 80%; display: inline-block; }
+        .responseForm button { width: 18%; display: inline-block; margin-left: 2%; }
+    </style>
+</head>
+<body>
+    <h1>Prayer Wall</h1>
+    <button onclick="loadPrayers()">Load Prayers</button>
+    <div id="prayers"></div>
+
+    <h2>Add a Prayer</h2>
+    <form id="prayerForm">
+        <input type="number" id="userId" placeholder="User ID" required>
+        <textarea id="text" placeholder="Your prayer..." required></textarea>
+        <button type="submit">Submit Prayer</button>
+    </form>
+
+    <script>
+        async function loadPrayers() {
+            try {
+                const response = await fetch('/prayers/');
+                const prayers = await response.json();
+                const container = document.getElementById('prayers');
+                container.innerHTML = prayers.map(prayer => `
+                    <div class="prayer">
+                        <strong>Prayer ${prayer.id} (User ${prayer.userId}):</strong> ${prayer.text}
+                        <div class="responses">
+                            ${prayer.responses.map(r => `<div class="response">${r.text}</div>`).join('')}
+                        </div>
+                        <form class="responseForm" data-prayer-id="${prayer.id}">
+                            <textarea placeholder="Add a response..." required></textarea>
+                            <button type="submit">Respond</button>
+                        </form>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading prayers:', error);
+            }
+        }
+
+        document.getElementById('prayerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userId = document.getElementById('userId').value;
+            const text = document.getElementById('text').value;
+            try {
+                await fetch('/prayers/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: parseInt(userId), text })
+                });
+                loadPrayers(); // Reload after adding
+                e.target.reset();
+            } catch (error) {
+                console.error('Error adding prayer:', error);
+            }
+        });
+
+        // Handle response forms
+        document.addEventListener('submit', async (e) => {
+            if (e.target.classList.contains('responseForm')) {
+                e.preventDefault();
+                const prayerId = e.target.dataset.prayerId;
+                const text = e.target.querySelector('textarea').value;
+                try {
+                    await fetch(`/prayers/${prayerId}/respond`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ text })
+                    });
+                    loadPrayers(); // Reload after responding
+                    e.target.reset();
+                } catch (error) {
+                    console.error('Error adding response:', error);
+                }
+            }
+        });
+
+        // Load prayers on page load
+        loadPrayers();
+    </script>
+</body>
+</html>

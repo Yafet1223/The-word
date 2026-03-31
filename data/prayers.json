@@ -1,0 +1,63 @@
+[
+  {
+    "id": 1,
+    "userId": 1,
+    "text": "Pray for my exams tomorrow",
+    "responses": [
+      {
+        "text": "🙏 Praying for you",
+        "timestamp": 1690000000000
+      },
+      {
+        "text": "ok nice\n",
+        "timestamp": 1774992388125
+      }
+    ],
+    "timestamp": 1690000000000
+  },
+  {
+    "id": 2,
+    "userId": 2,
+    "text": "Pray for my family’s health",
+    "responses": [
+      {
+        "text": "Praying for your family!",
+        "timestamp": 1774992100531
+      }
+    ],
+    "timestamp": 1690001000000
+  },
+  {
+    "userId": 3,
+    "text": "Test prayer from API",
+    "id": 3,
+    "responses": [
+      {
+        "text": "Amen!",
+        "timestamp": 1774991673637
+      }
+    ],
+    "timestamp": 1774991645633
+  },
+  {
+    "userId": 6,
+    "text": "Pray for world peace",
+    "id": 4,
+    "responses": [],
+    "timestamp": 1774992061375
+  },
+  {
+    "userId": 3,
+    "text": "i am lovely",
+    "id": 5,
+    "responses": [],
+    "timestamp": 1774992320735
+  },
+  {
+    "userId": 2,
+    "text": "i am good\n",
+    "id": 6,
+    "responses": [],
+    "timestamp": 1774992399881
+  }
+]
