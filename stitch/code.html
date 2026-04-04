@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Word | A Living Sanctuary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#6e573b",
+                        "surface-container-high": "#e9e8e1",
+                        "on-error-container": "#6e1400",
+                        "on-surface-variant": "#5e6059",
+                        "secondary": "#5c614e",
+                        "surface-variant": "#e3e3db",
+                        "tertiary-dim": "#704b23",
+                        "on-tertiary-fixed-variant": "#53320b",
+                        "on-tertiary-fixed": "#271300",
+                        "surface": "#fbf9f4",
+                        "surface-container-highest": "#e3e3db",
+                        "surface-bright": "#fbf9f4",
+                        "on-tertiary": "#fff7f4",
+                        "on-secondary": "#f7fbe2",
+                        "primary-dim": "#654f34",
+                        "on-secondary-fixed": "#3c4130",
+                        "on-tertiary-container": "#482904",
+                        "surface-container": "#efeee7",
+                        "outline-variant": "#b2b2ab",
+                        "secondary-fixed-dim": "#d2d7bf",
+                        "inverse-surface": "#0e0e0c",
+                        "primary": "#725b3f",
+                        "surface-tint": "#725b3f",
+                        "primary-container": "#fdddb9",
+                        "tertiary-fixed-dim": "#ca9a6b",
+                        "tertiary": "#7e572e",
+                        "error-container": "#fd795a",
+                        "on-secondary-fixed-variant": "#595e4b",
+                        "error": "#a73b21",
+                        "on-error": "#fff7f6",
+                        "background": "#fbf9f4",
+                        "secondary-dim": "#505543",
+                        "on-secondary-container": "#4f5441",
+                        "surface-container-low": "#f5f4ed",
+                        "on-primary-fixed": "#503c22",
+                        "primary-fixed": "#fdddb9",
+                        "secondary-fixed": "#e0e5cc",
+                        "error-dim": "#791903",
+                        "secondary-container": "#e0e5cc",
+                        "tertiary-container": "#d9a777",
+                        "inverse-on-surface": "#9e9d99",
+                        "outline": "#7a7b75",
+                        "primary-fixed-dim": "#eecfac",
+                        "on-background": "#31332e",
+                        "tertiary-fixed": "#d9a777",
+                        "inverse-primary": "#fdddb9",
+                        "on-primary-container": "#644e33",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#fff7f3",
+                        "surface-dim": "#dadad2",
+                        "on-surface": "#31332e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4, .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background-color: rgba(251, 249, 244, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#fbf9f4]/70 dark:bg-stone-950/70 backdrop-blur-xl">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+<div class="text-2xl font-serif italic text-[#725b3f] dark:text-[#fdddb9]">The Word</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-[#725b3f] dark:text-[#fdddb9] font-bold border-b-2 border-[#725b3f] pb-1 hover:text-[#a68966] transition-colors duration-300" href="#prayers">Explore</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a68966] transition-colors duration-300" href="about.html">About</a>
+<a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a68966] transition-colors duration-300" href="login.html">Sign In</a>
+<a href="signup.html" class="bg-gradient-to-br from-primary to-primary-dim text-on-primary px-6 py-2 rounded-md font-medium hover:scale-[0.98] transition-transform duration-200 inline-block">
+                    Join the community
+                </a>
+</div>
+<!-- Mobile Menu Icon (Visual Only) -->
+<div class="md:hidden">
+<span class="material-symbols-outlined text-primary">menu</span>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative px-8 py-20 lg:py-32 overflow-hidden">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7 z-10">
+<h1 class="text-5xl lg:text-7xl font-bold text-primary mb-6 leading-[1.1] tracking-tight">
+                        Grow together <br/> in faith.
+                    </h1>
+<p class="text-xl text-on-surface-variant mb-10 max-w-xl leading-relaxed">
+                        A simple, meaningful space to share scripture, reflections, and prayer requests. Join a gentle community focused on what truly matters.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<a href="signup.html" class="bg-gradient-to-br from-primary to-primary-dim text-on-primary px-8 py-4 rounded-md text-lg font-semibold shadow-lg shadow-primary/10 hover:opacity-90 transition-opacity inline-block">
+                            Join the community
+                        </a>
+<a href="#prayers" class="bg-surface-container-high text-primary px-8 py-4 rounded-md text-lg font-semibold hover:bg-surface-container-highest transition-colors inline-block">
+                            Explore prayers
+                        </a>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="aspect-square rounded-full bg-primary-container/30 absolute -top-10 -right-10 blur-3xl w-full h-full -z-10"></div>
+<img alt="Peaceful morning light" class="rounded-xl object-cover w-full h-[500px] shadow-2xl shadow-on-surface/5" data-alt="Soft morning sunlight streaming through a window onto a wooden table with an open journal and a small plant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB74H2qmDRcXRII08fmvrgixutnYvYAh92zgtkeFE7nf-65hvm6mv3gFFeeCsvDqygv5FNb8VzrAiK5r6RdjoNVXhFXlG6kqtDPXkyoBBQz3OHDR5piFyrc-adhhGOsgbPyE4riSMfMBhrTmkXlgdKFATLCUqvZHIT1EKmofzAXe5z8JG7AIKzoyQGgyiTPX0KyzF1JgSmW5ATlZtmDiCYCWnkaO8wsq7oBsWGtc5JUFG7DBrFye6J_MV6GSybE7kwvKx-4MRUJAfs"/>
+</div>
+</div>
+</section>
+<!-- Features Section (Bento Grid Style) -->
+<section class="px-8 py-24 bg-surface-container-low">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-on-surface mb-4">Cultivate your spirit.</h2>
+<p class="text-on-surface-variant">Features designed for depth, not distraction.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Feature 1 -->
+<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/10 group hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-4xl text-primary mb-6" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="text-2xl font-bold mb-3">Daily Verse Drop</h3>
+<p class="text-on-surface-variant leading-relaxed">Every morning, receive a carefully curated piece of scripture. Share your own reflections and see how the Word speaks to others in the community.</p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-surface p-8 rounded-xl border border-outline-variant/10 group hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-4xl text-tertiary mb-6" data-icon="favorite">favorite</span>
+<h3 class="text-xl font-bold mb-3">Prayer Wall</h3>
+<p class="text-on-surface-variant text-sm">Post requests and lift others up. A space for collective intercession and quiet support.</p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface p-8 rounded-xl border border-outline-variant/10 group hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-4xl text-secondary mb-6" data-icon="forum">forum</span>
+<h3 class="text-xl font-bold mb-3">Study Threads</h3>
+<p class="text-on-surface-variant text-sm">Dive deep into biblical context and shared wisdom through meaningful discussion threads.</p>
+</div>
+<!-- Feature 4 -->
+<div class="md:col-span-4 lg:col-span-2 bg-surface-container-highest/50 p-8 rounded-xl border border-outline-variant/10 flex flex-col md:flex-row items-center gap-8">
+<div class="flex-1">
+<span class="material-symbols-outlined text-4xl text-primary mb-6" data-icon="trending_up">trending_up</span>
+<h3 class="text-2xl font-bold mb-3">Growth Streak</h3>
+<p class="text-on-surface-variant leading-relaxed">Consistency is the key to spiritual health. Track your daily engagement without the pressure of typical social media metrics.</p>
+</div>
+<div class="w-full md:w-48 aspect-video md:aspect-square bg-surface-container-lowest rounded-lg shadow-inner flex items-center justify-center">
+<!-- Visual placeholder for streak -->
+<div class="flex gap-2">
+<div class="w-3 h-8 bg-primary rounded-full"></div>
+<div class="w-3 h-12 bg-primary-container rounded-full"></div>
+<div class="w-3 h-16 bg-primary rounded-full"></div>
+<div class="w-3 h-10 bg-primary-container rounded-full"></div>
+<div class="w-3 h-20 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Example Content Section -->
+<section id="prayers" class="px-8 py-24 bg-surface">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-3xl font-bold text-center mb-16 italic font-serif">Quiet moments in the sanctuary.</h2>
+<div class="space-y-12">
+<!-- Sample Post: Verse Reflection -->
+<div class="bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-6xl" data-icon="format_quote">format_quote</span>
+</div>
+<span class="text-xs uppercase tracking-widest text-primary font-bold mb-4 block">Daily Reflection</span>
+<blockquote class="text-2xl md:text-3xl font-serif text-on-surface italic mb-6 leading-snug">
+                            "The Lord is my shepherd; I shall not want. He makes me lie down in green pastures."
+                        </blockquote>
+<div class="flex items-center gap-4 mb-6">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary font-bold">E</div>
+<div>
+<p class="font-bold text-on-surface">Elias Thorne</p>
+<p class="text-xs text-on-surface-variant">Reflection on Psalm 23</p>
+</div>
+</div>
+<p class="text-on-surface-variant leading-relaxed">
+                            This verse reminded me today that rest isn't a reward for work, but a gift from the Shepherd. I've been running so fast, I forgot to lie down in the pastures He already provided.
+                        </p>
+</div>
+<!-- Sample Post: Prayer Request -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex items-center gap-4 mb-6">
+<div class="w-10 h-10 rounded-full overflow-hidden">
+<img alt="User Avatar" class="w-full h-full object-cover" data-alt="Portrait of a kind-looking woman with a warm smile in natural outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN0uOuJhpvUK9_HIve_lCSQK8qjX6VoNBTmAbXAuPZnc7EzR5EgmwYHGYL1FJYVFM6GOL5_wz6x-JHnBrR7YZNwIZ6Mla_xd17ZInYZOgXq4HmXlIG5bGdlCfsCJDOXJNnrICT_F9rPG0gChOpqm_eRi_Qfk1rqMsFMFjYVNNJJjUZVZr64T19M7m7V0ddjc_G508c8Tys6epzZm7gr9nN3qDV4LT0brOh8yl5XdQWD8eB9D1dNsoNYmikxjSdQXpsFueIZULSbjo"/>
+</div>
+<div>
+<p class="font-bold text-on-surface">Sarah Jenkins</p>
+<p class="text-xs text-on-surface-variant">Prayer Request • 2h ago</p>
+</div>
+</div>
+<p class="text-lg text-on-surface mb-6">
+                            My family is going through a season of transition with a new job and moving cities. Praying for peace in the chaos and clear direction.
+                        </p>
+<div class="flex gap-4">
+<button class="flex items-center gap-2 text-primary font-bold text-sm">
+<span class="material-symbols-outlined text-lg" data-icon="favorite" data-weight="fill" style="font-variation-settings: 'FILL' 1;">favorite</span>
+                                12 Praying
+                            </button>
+<button class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-lg" data-icon="chat_bubble">chat_bubble</span>
+                                3 Responses
+                            </button>
+</div>
+<!-- Responses -->
+<div class="mt-6 pt-6 border-t border-outline-variant/20 space-y-4">
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-[10px] flex items-center justify-center text-on-primary-container font-bold shrink-0">MJ</div>
+<p class="text-sm text-on-surface-variant"><span class="font-bold text-on-surface">Mark J.</span> Praying for your peace today, Sarah. God goes before you!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Value Section -->
+<section class="px-8 py-24 bg-surface-container-low overflow-hidden relative">
+<div class="max-w-7xl mx-auto text-center relative z-10">
+<h2 class="text-4xl font-bold text-primary mb-16">Why The Word?</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="space-y-4">
+<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="do_not_disturb_on">do_not_disturb_on</span>
+</div>
+<h3 class="text-xl font-bold">No Noise</h3>
+<p class="text-on-surface-variant leading-relaxed">No ads, no algorithmic feeds designed to keep you scrolling. Just the content you chose to see.</p>
+</div>
+<div class="space-y-4">
+<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="diversity_3">diversity_3</span>
+</div>
+<h3 class="text-xl font-bold">No Judgment</h3>
+<p class="text-on-surface-variant leading-relaxed">A sanctuary built on grace. We foster a community that supports your journey, no matter where you are starting from.</p>
+</div>
+<div class="space-y-4">
+<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="link">link</span>
+</div>
+<h3 class="text-xl font-bold">Deep Connection</h3>
+<p class="text-on-surface-variant leading-relaxed">Go beyond surface-level likes. Find people who truly pray with you and walk beside you in faith.</p>
+</div>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-primary-container/20 rounded-full blur-[100px]"></div>
+</section>
+<!-- CTA Section -->
+<section class="px-8 py-24">
+<div class="max-w-5xl mx-auto bg-gradient-to-br from-primary to-primary-dim rounded-2xl p-12 text-center text-on-primary shadow-2xl shadow-primary/20">
+<h2 class="text-3xl md:text-5xl font-bold mb-6">Start your journey today.</h2>
+<p class="text-lg md:text-xl text-on-primary/80 mb-10 max-w-2xl mx-auto">
+                    Join thousands of others in creating a daily rhythm of reflection and community.
+                </p>
+<form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4" onsubmit="return false;">
+<input class="flex-1 px-6 py-4 rounded-md bg-white/10 border-none text-white placeholder:text-white/60 focus:ring-2 focus:ring-primary-container outline-none" placeholder="Your email address" type="email"/>
+<button class="bg-primary-container text-on-primary-container px-8 py-4 rounded-md font-bold hover:bg-white transition-colors">
+                        Join Now
+                    </button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f5f4ed] dark:bg-stone-900 w-full py-12 px-8">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
+<div class="text-lg font-serif text-[#725b3f] dark:text-[#fdddb9]">The Word</div>
+<div class="flex flex-wrap justify-center gap-8 text-sm font-sans tracking-wide">
+<a class="text-stone-500 hover:text-[#725b3f] transition-all" href="#prayers">Explore</a>
+<a class="text-stone-500 hover:text-[#725b3f] transition-all" href="about.html">About</a>
+<a class="text-stone-500 hover:text-[#725b3f] transition-all" href="privacy.html">Privacy Policy</a>
+<a class="text-stone-500 hover:text-[#725b3f] transition-all" href="terms.html">Terms of Service</a>
+<a class="text-stone-500 hover:text-[#725b3f] transition-all" href="guidelines.html">Community Guidelines</a>
+<a class="text-stone-500 hover:text-[#725b3f] transition-all" href="support.html">Support</a>
+</div>
+<div class="text-stone-500 text-sm">
+                © 2024 The Word. A Living Sanctuary.
+            </div>
+</div>
+</footer>
+</body></html>

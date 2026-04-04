@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>About | The Word</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#6e573b",
+                        "surface-container-high": "#e9e8e1",
+                        "on-error-container": "#6e1400",
+                        "on-surface-variant": "#5e6059",
+                        "secondary": "#5c614e",
+                        "surface-variant": "#e3e3db",
+                        "tertiary-dim": "#704b23",
+                        "on-tertiary-fixed-variant": "#53320b",
+                        "on-tertiary-fixed": "#271300",
+                        "surface": "#fbf9f4",
+                        "surface-container-highest": "#e3e3db",
+                        "surface-bright": "#fbf9f4",
+                        "on-tertiary": "#fff7f4",
+                        "on-secondary": "#f7fbe2",
+                        "primary-dim": "#654f34",
+                        "on-secondary-fixed": "#3c4130",
+                        "on-tertiary-container": "#482904",
+                        "surface-container": "#efeee7",
+                        "outline-variant": "#b2b2ab",
+                        "secondary-fixed-dim": "#d2d7bf",
+                        "inverse-surface": "#0e0e0c",
+                        "primary": "#725b3f",
+                        "surface-tint": "#725b3f",
+                        "primary-container": "#fdddb9",
+                        "tertiary-fixed-dim": "#ca9a6b",
+                        "tertiary": "#7e572e",
+                        "error-container": "#fd795a",
+                        "on-secondary-fixed-variant": "#595e4b",
+                        "error": "#a73b21",
+                        "on-error": "#fff7f6",
+                        "background": "#fbf9f4",
+                        "secondary-dim": "#505543",
+                        "on-secondary-container": "#4f5441",
+                        "surface-container-low": "#f5f4ed",
+                        "on-primary-fixed": "#503c22",
+                        "primary-fixed": "#fdddb9",
+                        "secondary-fixed": "#e0e5cc",
+                        "error-dim": "#791903",
+                        "secondary-container": "#e0e5cc",
+                        "tertiary-container": "#d9a777",
+                        "inverse-on-surface": "#9e9d99",
+                        "outline": "#7a7b75",
+                        "primary-fixed-dim": "#eecfac",
+                        "on-background": "#31332e",
+                        "tertiary-fixed": "#d9a777",
+                        "inverse-primary": "#fdddb9",
+                        "on-primary-container": "#644e33",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#fff7f3",
+                        "surface-dim": "#dadad2",
+                        "on-surface": "#31332e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4 .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background-color: rgba(251, 249, 244, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 bg-[#fbf9f4]/70 dark:bg-stone-950/70 backdrop-blur-xl">
+        <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
+            <div class="text-2xl font-serif italic text-[#725b3f] dark:text-[#fdddb9]">The Word</div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a class="text-[#725b3f] dark:text-[#fdddb9] font-bold border-b-2 border-[#725b3f] pb-1 hover:text-[#a68966] transition-colors duration-300" href="code.html#prayers">Explore</a>
+                <a class="text-[#725b3f] dark:text-[#fdddb9] font-bold border-b-2 border-[#725b3f] pb-1 hover:text-[#a68966] transition-colors duration-300" href="about.html">About</a>
+                <a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a68966] transition-colors duration-300" href="login.html">Sign In</a>
+                <a href="signup.html" class="bg-gradient-to-br from-primary to-primary-dim text-on-primary px-6 py-2 rounded-md font-medium hover:scale-[0.98] transition-transform duration-200 inline-block">
+                    Join the community
+                </a>
+            </div>
+            <!-- Mobile Menu Icon (Visual Only) -->
+            <div class="md:hidden">
+                <span class="material-symbols-outlined text-primary">menu</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-24">
+        <!-- About Section -->
+        <section class="px-8 py-20 lg:py-32">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl lg:text-6xl font-bold text-primary mb-8 text-center">About The Word</h1>
+                <p class="text-xl text-on-surface-variant mb-12 leading-relaxed text-center">
+                    A sanctuary for faith, reflection, and community in a noisy world.
+                </p>
+                <div class="space-y-8">
+                    <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold text-primary mb-4">Our Mission</h2>
+                        <p class="text-on-surface-variant leading-relaxed">
+                            The Word is a digital sanctuary designed to foster spiritual growth through scripture, prayer, and meaningful connections. We believe in creating a space where faith communities can gather without the distractions of modern social media.
+                        </p>
+                    </div>
+                    <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold text-primary mb-4">Our Story</h2>
+                        <p class="text-on-surface-variant leading-relaxed">
+                            Founded in 2024, The Word emerged from a desire to reclaim the essence of spiritual community in the digital age. We saw how traditional platforms often prioritize engagement over depth, and we wanted to build something different.
+                        </p>
+                    </div>
+                    <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold text-primary mb-4">Our Values</h2>
+                        <ul class="text-on-surface-variant leading-relaxed space-y-2">
+                            <li>• <strong>Authenticity</strong>: Real conversations, genuine faith journeys</li>
+                            <li>• <strong>Community</strong>: Supporting one another in times of need</li>
+                            <li>• <strong>Simplicity</strong>: Focus on what matters most</li>
+                            <li>• <strong>Grace</strong>: A judgment-free space for all believers</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-[#f5f4ed] dark:bg-stone-900 w-full py-12 px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
+            <div class="text-lg font-serif text-[#725b3f] dark:text-[#fdddb9]">The Word</div>
+            <div class="flex flex-wrap justify-center gap-8 text-sm font-sans tracking-wide">
+                <a class="text-stone-500 hover:text-[#725b3f] transition-all" href="code.html#prayers">Explore</a>
+                <a class="text-stone-500 hover:text-[#725b3f] transition-all" href="about.html">About</a>
+                <a class="text-stone-500 hover:text-[#725b3f] transition-all" href="privacy.html">Privacy Policy</a>
+                <a class="text-stone-500 hover:text-[#725b3f] transition-all" href="terms.html">Terms of Service</a>
+                <a class="text-stone-500 hover:text-[#725b3f] transition-all" href="guidelines.html">Community Guidelines</a>
+                <a class="text-stone-500 hover:text-[#725b3f] transition-all" href="support.html">Support</a>
+            </div>
+            <div class="text-stone-500 text-sm">
+                © 2024 The Word. A Living Sanctuary.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

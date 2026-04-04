@@ -12,9 +12,16 @@ app.use("/prayers", prayersRoutes);
 app.use("/users", usersRoutes);
 app.use("/data", express.static(path.join(__dirname, "../data")));
 
-// Serve the React app for all other routes
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, '../files(2)/dist/index.html'));
+// Serve stitch static files:
+app.use(express.static(path.join(__dirname, '../stitch')));
+
+// SPA fallback to stitch/code.html for frontend paths
+app.use((req, res, next) => {
+  const pathUrl = req.path;
+  if (pathUrl.startsWith('/prayers') || pathUrl.startsWith('/users') || pathUrl.startsWith('/data')) {
+    return next();
+  }
+  res.sendFile(path.join(__dirname, '../stitch/code.html'));
 });
 
 app.listen(3000, () => {
