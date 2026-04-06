@@ -87,21 +87,34 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .glass-nav {
-            background-color: rgba(251, 249, 244, 0.7);
-            backdrop-filter: blur(20px);
+            background-color: rgba(251, 249, 244, 0.75);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(245, 244, 237, 0.4);
         }
+        /* Custom Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
     </style>
 </head>
 <body class="bg-background text-on-background">
     <!-- TopNavBar -->
-    <nav class="fixed top-0 w-full z-50 bg-[#fbf9f4]/70 dark:bg-stone-950/70 backdrop-blur-xl">
+    <nav class="fixed top-0 w-full z-50 glass-nav shadow-sm dark:bg-stone-950/80 transition-all duration-300">
         <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
-            <div class="text-2xl font-serif italic text-[#725b3f] dark:text-[#fdddb9]">The Word</div>
+            <div class="text-2xl font-serif italic text-primary dark:text-primary-container tracking-wide">The Word</div>
             <div class="hidden md:flex items-center space-x-8">
-                <a class="text-[#725b3f] dark:text-[#fdddb9] font-bold border-b-2 border-[#725b3f] pb-1 hover:text-[#a68966] transition-colors duration-300" href="code.html#prayers">Explore</a>
-                <a class="text-[#725b3f] dark:text-[#fdddb9] font-bold border-b-2 border-[#725b3f] pb-1 hover:text-[#a68966] transition-colors duration-300" href="about.html">About</a>
+                <a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a68966] transition-colors duration-300" href="code.html#prayers">Explore</a>
+                <a class="text-primary dark:text-primary-container font-bold border-b-2 border-primary pb-1 hover:text-tertiary transition-colors duration-300" href="about.html">About</a>
                 <a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a68966] transition-colors duration-300" href="login.html">Sign In</a>
-                <a href="signup.html" class="bg-gradient-to-br from-primary to-primary-dim text-on-primary px-6 py-2 rounded-md font-medium hover:scale-[0.98] transition-transform duration-200 inline-block">
+                <a href="signup.html" class="bg-gradient-to-br from-primary to-tertiary shadow-md shadow-primary/20 text-on-primary px-6 py-2 rounded-full font-medium hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 inline-block">
                     Join the community
                 </a>
             </div>
@@ -114,32 +127,36 @@
 
     <main class="pt-24">
         <!-- About Section -->
-        <section class="px-8 py-20 lg:py-32">
-            <div class="max-w-4xl mx-auto">
-                <h1 class="text-4xl lg:text-6xl font-bold text-primary mb-8 text-center">About The Word</h1>
-                <p class="text-xl text-on-surface-variant mb-12 leading-relaxed text-center">
+        <section class="px-8 py-20 lg:py-32 relative overflow-hidden">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-64 bg-gradient-to-b from-primary-container/30 to-transparent blur-3xl -z-10 animate-fade-in-up"></div>
+            <div class="max-w-4xl mx-auto relative z-10">
+                <h1 class="text-4xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary mb-8 text-center animate-fade-in-up">About The Word</h1>
+                <p class="text-xl text-on-surface-variant mb-12 leading-relaxed text-center animate-fade-in-up delay-100">
                     A sanctuary for faith, reflection, and community in a noisy world.
                 </p>
-                <div class="space-y-8">
-                    <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
-                        <h2 class="text-2xl font-bold text-primary mb-4">Our Mission</h2>
-                        <p class="text-on-surface-variant leading-relaxed">
+                <div class="space-y-8 animate-fade-in-up delay-200">
+                    <div class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-outline-variant/10 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-primary-container/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+                        <h2 class="text-2xl font-bold text-primary mb-4 relative z-10">Our Mission</h2>
+                        <p class="text-on-surface-variant leading-relaxed relative z-10">
                             The Word is a digital sanctuary designed to foster spiritual growth through scripture, prayer, and meaningful connections. We believe in creating a space where faith communities can gather without the distractions of modern social media.
                         </p>
                     </div>
-                    <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
-                        <h2 class="text-2xl font-bold text-primary mb-4">Our Story</h2>
-                        <p class="text-on-surface-variant leading-relaxed">
+                    <div class="bg-surface-container-low p-10 rounded-2xl shadow-sm border border-outline-variant/10 hover:shadow-xl hover:shadow-tertiary/5 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group">
+                        <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-tertiary-container/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+                        <h2 class="text-2xl font-bold text-tertiary mb-4 relative z-10">Our Story</h2>
+                        <p class="text-on-surface-variant leading-relaxed relative z-10">
                             Founded in 2024, The Word emerged from a desire to reclaim the essence of spiritual community in the digital age. We saw how traditional platforms often prioritize engagement over depth, and we wanted to build something different.
                         </p>
                     </div>
-                    <div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm">
-                        <h2 class="text-2xl font-bold text-primary mb-4">Our Values</h2>
-                        <ul class="text-on-surface-variant leading-relaxed space-y-2">
-                            <li>• <strong>Authenticity</strong>: Real conversations, genuine faith journeys</li>
-                            <li>• <strong>Community</strong>: Supporting one another in times of need</li>
-                            <li>• <strong>Simplicity</strong>: Focus on what matters most</li>
-                            <li>• <strong>Grace</strong>: A judgment-free space for all believers</li>
+                    <div class="bg-surface-container-lowest p-10 rounded-2xl shadow-sm border border-outline-variant/10 hover:shadow-xl hover:shadow-secondary/5 transition-all duration-500 hover:-translate-y-1 relative overflow-hidden group">
+                        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-secondary-container/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700"></div>
+                        <h2 class="text-2xl font-bold text-secondary mb-4 relative z-10">Our Values</h2>
+                        <ul class="text-on-surface-variant leading-relaxed space-y-2 relative z-10">
+                            <li>• <strong class="text-on-surface">Authenticity</strong>: Real conversations, genuine faith journeys</li>
+                            <li>• <strong class="text-on-surface">Community</strong>: Supporting one another in times of need</li>
+                            <li>• <strong class="text-on-surface">Simplicity</strong>: Focus on what matters most</li>
+                            <li>• <strong class="text-on-surface">Grace</strong>: A judgment-free space for all believers</li>
                         </ul>
                     </div>
                 </div>

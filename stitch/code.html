@@ -88,21 +88,36 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         .glass-nav {
-            background-color: rgba(251, 249, 244, 0.7);
-            backdrop-filter: blur(20px);
+            background-color: rgba(251, 249, 244, 0.75);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(245, 244, 237, 0.4);
         }
+        /* Custom Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+        .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
     </style>
 </head>
 <body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
 <!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-[#fbf9f4]/70 dark:bg-stone-950/70 backdrop-blur-xl">
+<nav class="fixed top-0 w-full z-50 glass-nav shadow-sm dark:bg-stone-950/80 transition-all duration-300">
 <div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto">
-<div class="text-2xl font-serif italic text-[#725b3f] dark:text-[#fdddb9]">The Word</div>
+<div class="text-2xl font-serif italic text-primary dark:text-primary-container tracking-wide">The Word</div>
 <div class="hidden md:flex items-center space-x-8">
-<a class="text-[#725b3f] dark:text-[#fdddb9] font-bold border-b-2 border-[#725b3f] pb-1 hover:text-[#a68966] transition-colors duration-300" href="#prayers">Explore</a>
+<a class="text-primary dark:text-primary-container font-bold border-b-2 border-primary pb-1 hover:text-tertiary transition-colors duration-300" href="#prayers">Explore</a>
 <a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a68966] transition-colors duration-300" href="about.html">About</a>
 <a class="text-stone-500 dark:text-stone-400 font-medium hover:text-[#a68966] transition-colors duration-300" href="login.html">Sign In</a>
-<a href="signup.html" class="bg-gradient-to-br from-primary to-primary-dim text-on-primary px-6 py-2 rounded-md font-medium hover:scale-[0.98] transition-transform duration-200 inline-block">
+<a href="signup.html" class="bg-gradient-to-br from-primary to-tertiary shadow-md shadow-primary/20 text-on-primary px-6 py-2 rounded-full font-medium hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300 inline-block">
                     Join the community
                 </a>
 </div>
@@ -117,23 +132,23 @@
 <section class="relative px-8 py-20 lg:py-32 overflow-hidden">
 <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
 <div class="lg:col-span-7 z-10">
-<h1 class="text-5xl lg:text-7xl font-bold text-primary mb-6 leading-[1.1] tracking-tight">
+<h1 class="text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary mb-6 leading-[1.1] tracking-tight animate-fade-in-up">
                         Grow together <br/> in faith.
                     </h1>
-<p class="text-xl text-on-surface-variant mb-10 max-w-xl leading-relaxed">
+<p class="text-xl text-on-surface-variant mb-10 max-w-xl leading-relaxed animate-fade-in-up delay-100">
                         A simple, meaningful space to share scripture, reflections, and prayer requests. Join a gentle community focused on what truly matters.
                     </p>
-<div class="flex flex-col sm:flex-row gap-4">
-<a href="signup.html" class="bg-gradient-to-br from-primary to-primary-dim text-on-primary px-8 py-4 rounded-md text-lg font-semibold shadow-lg shadow-primary/10 hover:opacity-90 transition-opacity inline-block">
+<div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-200">
+<a href="signup.html" class="bg-gradient-to-br from-primary to-tertiary text-on-primary px-8 py-4 rounded-full text-lg font-semibold shadow-xl shadow-primary/20 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300 inline-block text-center">
                             Join the community
                         </a>
-<a href="#prayers" class="bg-surface-container-high text-primary px-8 py-4 rounded-md text-lg font-semibold hover:bg-surface-container-highest transition-colors inline-block">
+<a href="#prayers" class="bg-surface-container-lowest text-primary px-8 py-4 rounded-full text-lg font-semibold border border-outline-variant/30 hover:bg-surface-container-low hover:border-outline-variant/50 hover:-translate-y-1 transition-all duration-300 inline-block text-center shadow-lg shadow-surface-variant/20">
                             Explore prayers
                         </a>
 </div>
 </div>
-<div class="lg:col-span-5 relative">
-<div class="aspect-square rounded-full bg-primary-container/30 absolute -top-10 -right-10 blur-3xl w-full h-full -z-10"></div>
+<div class="lg:col-span-5 relative animate-fade-in-up delay-300">
+<div class="aspect-square rounded-full bg-gradient-to-br from-primary-container/50 to-tertiary-container/30 absolute -top-10 -right-10 blur-[80px] w-full h-full -z-10 animate-pulse"></div>
 <img alt="Peaceful morning light" class="rounded-xl object-cover w-full h-[500px] shadow-2xl shadow-on-surface/5" data-alt="Soft morning sunlight streaming through a window onto a wooden table with an open journal and a small plant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB74H2qmDRcXRII08fmvrgixutnYvYAh92zgtkeFE7nf-65hvm6mv3gFFeeCsvDqygv5FNb8VzrAiK5r6RdjoNVXhFXlG6kqtDPXkyoBBQz3OHDR5piFyrc-adhhGOsgbPyE4riSMfMBhrTmkXlgdKFATLCUqvZHIT1EKmofzAXe5z8JG7AIKzoyQGgyiTPX0KyzF1JgSmW5ATlZtmDiCYCWnkaO8wsq7oBsWGtc5JUFG7DBrFye6J_MV6GSybE7kwvKx-4MRUJAfs"/>
 </div>
 </div>
@@ -147,25 +162,28 @@
 </div>
 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
 <!-- Feature 1 -->
-<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-xl border border-outline-variant/10 group hover:bg-white transition-colors">
-<span class="material-symbols-outlined text-4xl text-primary mb-6" data-icon="auto_awesome">auto_awesome</span>
-<h3 class="text-2xl font-bold mb-3">Daily Verse Drop</h3>
-<p class="text-on-surface-variant leading-relaxed">Every morning, receive a carefully curated piece of scripture. Share your own reflections and see how the Word speaks to others in the community.</p>
+<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/20 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 overflow-hidden relative group">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-primary-container/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+<span class="material-symbols-outlined text-4xl text-primary mb-6 relative z-10" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="text-2xl font-bold mb-3 relative z-10">Daily Verse Drop</h3>
+<p class="text-on-surface-variant leading-relaxed relative z-10">Every morning, receive a carefully curated piece of scripture. Share your own reflections and see how the Word speaks to others in the community.</p>
 </div>
 <!-- Feature 2 -->
-<div class="bg-surface p-8 rounded-xl border border-outline-variant/10 group hover:bg-white transition-colors">
-<span class="material-symbols-outlined text-4xl text-tertiary mb-6" data-icon="favorite">favorite</span>
-<h3 class="text-xl font-bold mb-3">Prayer Wall</h3>
-<p class="text-on-surface-variant text-sm">Post requests and lift others up. A space for collective intercession and quiet support.</p>
+<div class="bg-surface p-8 rounded-2xl shadow-sm border border-outline-variant/20 hover:-translate-y-2 hover:shadow-xl hover:shadow-tertiary/5 transition-all duration-500 overflow-hidden relative group">
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-tertiary-container/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+<span class="material-symbols-outlined text-4xl text-tertiary mb-6 relative z-10" data-icon="favorite">favorite</span>
+<h3 class="text-xl font-bold mb-3 relative z-10">Prayer Wall</h3>
+<p class="text-on-surface-variant text-sm relative z-10">Post requests and lift others up. A space for collective intercession and quiet support.</p>
 </div>
 <!-- Feature 3 -->
-<div class="bg-surface p-8 rounded-xl border border-outline-variant/10 group hover:bg-white transition-colors">
-<span class="material-symbols-outlined text-4xl text-secondary mb-6" data-icon="forum">forum</span>
-<h3 class="text-xl font-bold mb-3">Study Threads</h3>
-<p class="text-on-surface-variant text-sm">Dive deep into biblical context and shared wisdom through meaningful discussion threads.</p>
+<div class="bg-surface p-8 rounded-2xl shadow-sm border border-outline-variant/20 hover:-translate-y-2 hover:shadow-xl hover:shadow-secondary/5 transition-all duration-500 overflow-hidden relative group">
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-secondary-container/20 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+<span class="material-symbols-outlined text-4xl text-secondary mb-6 relative z-10" data-icon="forum">forum</span>
+<h3 class="text-xl font-bold mb-3 relative z-10">Study Threads</h3>
+<p class="text-on-surface-variant text-sm relative z-10">Dive deep into biblical context and shared wisdom through meaningful discussion threads.</p>
 </div>
 <!-- Feature 4 -->
-<div class="md:col-span-4 lg:col-span-2 bg-surface-container-highest/50 p-8 rounded-xl border border-outline-variant/10 flex flex-col md:flex-row items-center gap-8">
+<div class="md:col-span-4 lg:col-span-2 bg-gradient-to-br from-surface to-surface-container p-8 rounded-2xl shadow-sm border border-outline-variant/20 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 flex flex-col md:flex-row items-center gap-8 group">
 <div class="flex-1">
 <span class="material-symbols-outlined text-4xl text-primary mb-6" data-icon="trending_up">trending_up</span>
 <h3 class="text-2xl font-bold mb-3">Growth Streak</h3>
@@ -191,7 +209,8 @@
 <h2 class="text-3xl font-bold text-center mb-16 italic font-serif">Quiet moments in the sanctuary.</h2>
 <div class="space-y-12">
 <!-- Sample Post: Verse Reflection -->
-<div class="bg-surface-container-lowest p-8 md:p-12 rounded-xl shadow-sm relative overflow-hidden">
+<div class="bg-surface-container-lowest p-8 md:p-12 rounded-2xl shadow-sm border border-outline-variant/10 relative overflow-hidden hover:shadow-xl hover:shadow-primary/5 transition-all duration-500 hover:-translate-y-1">
+<div class="absolute -right-10 -top-10 w-64 h-64 bg-primary-container/20 rounded-full blur-3xl -z-0"></div>
 <div class="absolute top-0 right-0 p-4 opacity-10">
 <span class="material-symbols-outlined text-6xl" data-icon="format_quote">format_quote</span>
 </div>
@@ -211,9 +230,9 @@
                         </p>
 </div>
 <!-- Sample Post: Prayer Request -->
-<div class="bg-surface-container-low p-8 rounded-xl">
+<div class="bg-gradient-to-br from-surface to-surface-container-low p-8 rounded-2xl shadow-sm border border-outline-variant/10 hover:shadow-xl hover:-translate-y-1 transition-all duration-500">
 <div class="flex items-center gap-4 mb-6">
-<div class="w-10 h-10 rounded-full overflow-hidden">
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/20">
 <img alt="User Avatar" class="w-full h-full object-cover" data-alt="Portrait of a kind-looking woman with a warm smile in natural outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDN0uOuJhpvUK9_HIve_lCSQK8qjX6VoNBTmAbXAuPZnc7EzR5EgmwYHGYL1FJYVFM6GOL5_wz6x-JHnBrR7YZNwIZ6Mla_xd17ZInYZOgXq4HmXlIG5bGdlCfsCJDOXJNnrICT_F9rPG0gChOpqm_eRi_Qfk1rqMsFMFjYVNNJJjUZVZr64T19M7m7V0ddjc_G508c8Tys6epzZm7gr9nN3qDV4LT0brOh8yl5XdQWD8eB9D1dNsoNYmikxjSdQXpsFueIZULSbjo"/>
 </div>
 <div>
@@ -246,27 +265,27 @@
 </div>
 </section>
 <!-- Value Section -->
-<section class="px-8 py-24 bg-surface-container-low overflow-hidden relative">
+<section class="px-8 py-24 bg-gradient-to-b from-surface-container-low to-surface overflow-hidden relative">
 <div class="max-w-7xl mx-auto text-center relative z-10">
 <h2 class="text-4xl font-bold text-primary mb-16">Why The Word?</h2>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-<div class="space-y-4">
-<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6">
-<span class="material-symbols-outlined text-3xl text-primary" data-icon="do_not_disturb_on">do_not_disturb_on</span>
+<div class="space-y-4 group">
+<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-container group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm group-hover:shadow-md">
+<span class="material-symbols-outlined text-3xl text-primary group-hover:text-on-primary-container transition-colors" data-icon="do_not_disturb_on">do_not_disturb_on</span>
 </div>
 <h3 class="text-xl font-bold">No Noise</h3>
 <p class="text-on-surface-variant leading-relaxed">No ads, no algorithmic feeds designed to keep you scrolling. Just the content you chose to see.</p>
 </div>
-<div class="space-y-4">
-<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6">
-<span class="material-symbols-outlined text-3xl text-primary" data-icon="diversity_3">diversity_3</span>
+<div class="space-y-4 group">
+<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-tertiary-container group-hover:scale-110 group-hover:-rotate-3 transition-all duration-300 shadow-sm group-hover:shadow-md">
+<span class="material-symbols-outlined text-3xl text-tertiary group-hover:text-on-tertiary-container transition-colors" data-icon="diversity_3">diversity_3</span>
 </div>
 <h3 class="text-xl font-bold">No Judgment</h3>
 <p class="text-on-surface-variant leading-relaxed">A sanctuary built on grace. We foster a community that supports your journey, no matter where you are starting from.</p>
 </div>
-<div class="space-y-4">
-<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6">
-<span class="material-symbols-outlined text-3xl text-primary" data-icon="link">link</span>
+<div class="space-y-4 group">
+<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary-container group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm group-hover:shadow-md">
+<span class="material-symbols-outlined text-3xl text-secondary group-hover:text-on-secondary-container transition-colors" data-icon="link">link</span>
 </div>
 <h3 class="text-xl font-bold">Deep Connection</h3>
 <p class="text-on-surface-variant leading-relaxed">Go beyond surface-level likes. Find people who truly pray with you and walk beside you in faith.</p>
