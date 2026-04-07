@@ -8,8 +8,11 @@ app.use(express.json());
 // Import your routes
 const prayersRoutes = require("../routes/prayers");
 const usersRoutes = require("../routes/users");
+const authRoutes = require("../auth/auth");
+
 app.use("/prayers", prayersRoutes);
 app.use("/users", usersRoutes);
+app.use("/auth", authRoutes);
 app.use("/data", express.static(path.join(__dirname, "../data")));
 
 // Serve stitch static files:
@@ -18,7 +21,7 @@ app.use(express.static(path.join(__dirname, '../stitch')));
 // SPA fallback to stitch/code.html for frontend paths
 app.use((req, res, next) => {
   const pathUrl = req.path;
-  if (pathUrl.startsWith('/prayers') || pathUrl.startsWith('/users') || pathUrl.startsWith('/data')) {
+  if (pathUrl.startsWith('/prayers') || pathUrl.startsWith('/users') || pathUrl.startsWith('/data') || pathUrl.startsWith('/auth')) {
     return next();
   }
   res.sendFile(path.join(__dirname, '../stitch/code.html'));
