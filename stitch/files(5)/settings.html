@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>The Word — Settings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .settings-layout { display:grid; grid-template-columns:200px 1fr; gap:28px; }
+    .settings-nav { display:flex; flex-direction:column; gap:2px; }
+    .s-nav-item { font-size:13px; color:var(--dim); padding:9px 14px; border-radius:2px; cursor:pointer; transition:all .15s; border-left:2px solid transparent; }
+    .s-nav-item:hover { color:var(--muted); background:rgba(255,255,255,.02); }
+    .s-nav-item.active { color:var(--gold); border-left-color:var(--gold); background:rgba(114, 91, 63,.05); }
+
+    .settings-section { margin-bottom:28px; }
+    .settings-section-title { font-family:var(--serif); font-size:18px; font-weight:500; color:var(--text); margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--ghost); }
+
+    .setting-row { display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-bottom:1px solid var(--ghost); }
+    .setting-row:last-child { border-bottom:none; }
+    .setting-label { font-size:14px; color:var(--muted); }
+    .setting-desc { font-size:11px; color:var(--faint); margin-top:2px; max-width:360px; line-height:1.5; }
+
+    .toggle { width:38px; height:20px; border-radius:10px; background:var(--border); cursor:pointer; position:relative; transition:background .2s; flex-shrink:0; }
+    .toggle.on { background:var(--green); }
+    .toggle::after { content:''; position:absolute; top:3px; left:3px; width:14px; height:14px; border-radius:50%; background:var(--bg2); transition:transform .2s; }
+    .toggle.on::after { transform:translateX(18px); background:#fff; }
+
+    .settings-input { background:var(--bg3); border:1px solid var(--border); border-radius:2px; padding:8px 12px; font-family:var(--sans); font-size:13px; color:var(--muted); outline:none; width:220px; transition:border-color .2s; }
+    .settings-input:focus { border-color:var(--border2); }
+    .settings-select { background:var(--bg3); border:1px solid var(--border); border-radius:2px; padding:8px 12px; font-family:var(--sans); font-size:13px; color:var(--muted); outline:none; width:180px; cursor:pointer; }
+
+    .profile-row { display:flex; align-items:center; gap:16px; padding:20px 0; border-bottom:1px solid var(--ghost); margin-bottom:4px; }
+    .profile-av-big { width:60px; height:60px; border-radius:50%; background:rgba(126, 87, 46,.3); border:1px solid rgba(126, 87, 46,.5); display:flex; align-items:center; justify-content:center; font-family:var(--serif); font-weight:700; font-size:22px; color:var(--green2); }
+    .profile-name { font-family:var(--serif); font-size:20px; font-weight:600; color:var(--text); }
+    .profile-meta { font-size:12px; color:var(--faint); margin-top:2px; }
+
+    .danger-zone { background:rgba(232,96,96,.05); border:1px solid rgba(232,96,96,.15); border-radius:2px; padding:18px 20px; }
+    .danger-title { font-size:12px; color:#E86060; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px; }
+    .danger-btn { background:transparent; color:#E86060; border:1px solid rgba(232,96,96,.3); border-radius:2px; padding:8px 16px; font-size:11px; cursor:pointer; font-family:var(--sans); letter-spacing:.06em; text-transform:uppercase; transition:all .2s; }
+    .danger-btn:hover { background:rgba(232,96,96,.1); }
+  </style>
+  <script>if(!localStorage.getItem('authToken')) window.location.href = '../login.html';</script>
+</head>
+<body>
+<div class="shell no-right">
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo"><div class="logo-dot"></div> The Word</a>
+    <div class="topbar-right">
+      <div class="streak-badge">🔥 7 Day Streak</div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar-btn">YF</div>
+    </div>
+  </header>
+  <aside class="sidebar">
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="index.html"><span class="nav-icon">⌂</span> Home</a>
+      <a class="nav-item" href="scripture.html"><span class="nav-icon">📖</span> Scripture</a>
+      <a class="nav-item" href="prayer.html"><span class="nav-icon">🙏</span> Prayer Wall <span class="nav-badge">12</span></a>
+      <a class="nav-item" href="ai.html"><span class="nav-icon">◎</span> AI Companion</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Community</div>
+      <a class="nav-item" href="circles.html"><span class="nav-icon">⬡</span> My Circles</a>
+      <a class="nav-item" href="devotion.html"><span class="nav-icon">☽</span> Devotion Feed <span class="nav-badge">4</span></a>
+      <a class="nav-item" href="explore.html"><span class="nav-icon">✦</span> Explore</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div>
+      <div class="nav-section-label">Personal</div>
+      <a class="nav-item" href="journal.html"><span class="nav-icon">◑</span> My Journal</a>
+      <a class="nav-item active" href="settings.html"><span class="nav-icon">⚙</span> Settings</a>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-row">
+        <div class="avatar-btn" style="width:36px;height:36px;font-size:13px">YF</div>
+        <div><div class="user-info-name">Yafet</div><div class="user-info-role">Daily Devotion</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" style="height:auto">
+    <div class="page-header fade d1">
+      <div class="page-label">Personal</div>
+      <h1 class="page-h1">Settings.</h1>
+    </div>
+
+    <div class="settings-layout fade d2">
+      <div class="settings-nav">
+        <div class="s-nav-item active" onclick="showSection('profile',this)">Profile</div>
+        <div class="s-nav-item" onclick="showSection('notifications',this)">Notifications</div>
+        <div class="s-nav-item" onclick="showSection('reading',this)">Reading</div>
+        <div class="s-nav-item" onclick="showSection('ai',this)">AI Companion</div>
+        <div class="s-nav-item" onclick="showSection('privacy',this)">Privacy</div>
+        <div class="s-nav-item" onclick="showSection('account',this)">Account</div>
+      </div>
+
+      <div>
+        <!-- PROFILE -->
+        <div id="sec-profile" class="settings-section">
+          <div class="settings-section-title">Profile</div>
+          <div class="profile-row">
+            <div class="profile-av-big">YF</div>
+            <div>
+              <div class="profile-name">Yafet</div>
+              <div class="profile-meta">Member since January 2026 · Daily Devotion</div>
+            </div>
+            <button class="btn btn-ghost" style="margin-left:auto">Change Photo</button>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Display Name</div></div>
+            <input class="settings-input" value="Yafet"/>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Username</div></div>
+            <input class="settings-input" value="@yafet"/>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Bio</div></div>
+            <input class="settings-input" value="Walking in faith, daily."/>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Faith Circle</div></div>
+            <select class="settings-select"><option>Daily Devotion</option><option>New Believers</option><option>Prayer Warriors</option><option>Youth & Faith</option></select>
+          </div>
+          <div style="margin-top:16px"><button class="btn btn-fill">Save Changes</button></div>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div id="sec-notifications" class="settings-section" style="display:none">
+          <div class="settings-section-title">Notifications</div>
+          <div class="setting-row">
+            <div><div class="setting-label">Daily verse reminder</div><div class="setting-desc">Receive a notification each morning with today's scripture</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Prayer wall activity</div><div class="setting-desc">New requests and answers to prayer</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Circle posts</div><div class="setting-desc">New posts in circles you've joined</div></div>
+            <div class="toggle" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Replies to my posts</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Weekly summary</div><div class="setting-desc">Your reading progress and community highlights</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Reminder time</div></div>
+            <input class="settings-input" type="time" value="07:00" style="width:120px"/>
+          </div>
+        </div>
+
+        <!-- READING -->
+        <div id="sec-reading" class="settings-section" style="display:none">
+          <div class="settings-section-title">Reading Preferences</div>
+          <div class="setting-row">
+            <div><div class="setting-label">Bible version</div></div>
+            <select class="settings-select"><option>NIV — New International Version</option><option>KJV — King James Version</option><option>ESV — English Standard Version</option><option>NLT — New Living Translation</option><option>MSG — The Message</option></select>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Daily reading goal</div><div class="setting-desc">Chapters per day target</div></div>
+            <select class="settings-select" style="width:120px"><option>1 chapter</option><option>2 chapters</option><option>3 chapters</option></select>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Font size</div></div>
+            <select class="settings-select" style="width:120px"><option>Small</option><option selected>Medium</option><option>Large</option></select>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Reading mode</div><div class="setting-desc">Show verse numbers and formatting</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+
+        <!-- AI -->
+        <div id="sec-ai" class="settings-section" style="display:none">
+          <div class="settings-section-title">AI Companion</div>
+          <div class="setting-row">
+            <div><div class="setting-label">Ollama server</div><div class="setting-desc">URL for your local Ollama instance</div></div>
+            <input class="settings-input" value="http://localhost:11434"/>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Default model</div></div>
+            <select class="settings-select"><option>llama3</option><option>mistral</option><option>phi3</option><option>gemma2</option></select>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Response tone</div></div>
+            <select class="settings-select"><option>Warm & Pastoral</option><option>Scholarly</option><option>Simple & Direct</option></select>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">AI suggestions on home</div><div class="setting-desc">Show personalized verse suggestions based on reading history</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Save conversation history</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div style="margin-top:16px"><button class="btn btn-green">Test Ollama Connection ◎</button></div>
+        </div>
+
+        <!-- PRIVACY -->
+        <div id="sec-privacy" class="settings-section" style="display:none">
+          <div class="settings-section-title">Privacy</div>
+          <div class="setting-row">
+            <div><div class="setting-label">Public profile</div><div class="setting-desc">Others can find and follow your profile</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Show in Explore</div><div class="setting-desc">Your posts may appear in community explore</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Private journal</div><div class="setting-desc">Journal entries are always private by default</div></div>
+            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Anonymous prayer requests</div><div class="setting-desc">Post to the prayer wall without showing your name</div></div>
+            <div class="toggle" onclick="this.classList.toggle('on')"></div>
+          </div>
+        </div>
+
+        <!-- ACCOUNT -->
+        <div id="sec-account" class="settings-section" style="display:none">
+          <div class="settings-section-title">Account</div>
+          <div class="setting-row">
+            <div><div class="setting-label">Email</div></div>
+            <input class="settings-input" value="yafet@example.com" type="email"/>
+          </div>
+          <div class="setting-row">
+            <div><div class="setting-label">Password</div></div>
+            <button class="btn btn-ghost">Change Password</button>
+          </div>
+          <div style="margin:24px 0">
+            <button class="btn btn-ghost" style="width:100%;padding:12px;font-size:11px">Sign Out</button>
+          </div>
+          <div class="danger-zone">
+            <div class="danger-title">Danger Zone</div>
+            <button class="danger-btn">Delete Account</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+  function showSection(id, el) {
+    document.querySelectorAll('.settings-section').forEach(s=>s.style.display='none');
+    document.getElementById('sec-'+id).style.display='block';
+    document.querySelectorAll('.s-nav-item').forEach(i=>i.classList.remove('active'));
+    el.classList.add('active');
+  }
+</script>
+</body>
+</html>

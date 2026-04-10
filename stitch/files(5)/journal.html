@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>The Word — My Journal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .journal-compose { background:var(--bg2); border:1px solid var(--border); border-radius:2px; padding:22px 24px; margin-bottom:24px; }
+    .compose-verse-ref { display:flex; gap:8px; margin-bottom:12px; }
+    .verse-ref-input { flex:1; background:var(--bg3); border:1px solid var(--border); border-radius:2px; padding:9px 12px; font-family:var(--serif); font-size:14px; color:var(--muted); outline:none; }
+    .verse-ref-input::placeholder { color:var(--faint); font-style:italic; }
+    .journal-textarea { width:100%; background:var(--bg3); border:1px solid var(--border); border-radius:2px; padding:14px 16px; font-family:var(--serif); font-size:16px; color:var(--muted); resize:none; outline:none; line-height:1.75; margin-bottom:12px; transition:border-color .2s; }
+    .journal-textarea::placeholder { color:var(--faint); font-style:italic; }
+    .journal-textarea:focus { border-color:var(--border2); }
+
+    .entry-card { background:var(--bg2); border:1px solid var(--border); border-radius:2px; padding:20px 22px; margin-bottom:10px; transition:border-color .2s; cursor:pointer; }
+    .entry-card:hover { border-color:var(--border2); }
+    .entry-date { font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--faint); margin-bottom:8px; }
+    .entry-verse { font-family:var(--serif); font-size:14px; font-style:italic; color:var(--gold); margin-bottom:8px; }
+    .entry-preview { font-family:var(--serif); font-size:15px; color:var(--muted); line-height:1.7; }
+    .entry-footer { display:flex; align-items:center; gap:8px; margin-top:12px; }
+    .entry-mood { font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--faint); background:var(--bg3); border:1px solid var(--border); padding:3px 9px; border-radius:1px; }
+  </style>
+  <script>if(!localStorage.getItem('authToken')) window.location.href = '../login.html';</script>
+</head>
+<body>
+<div class="shell no-right">
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo"><div class="logo-dot"></div> The Word</a>
+    <div class="topbar-right">
+      <div class="streak-badge">🔥 7 Day Streak</div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar-btn">YF</div>
+    </div>
+  </header>
+  <aside class="sidebar">
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="index.html"><span class="nav-icon">⌂</span> Home</a>
+      <a class="nav-item" href="scripture.html"><span class="nav-icon">📖</span> Scripture</a>
+      <a class="nav-item" href="prayer.html"><span class="nav-icon">🙏</span> Prayer Wall <span class="nav-badge">12</span></a>
+      <a class="nav-item" href="ai.html"><span class="nav-icon">◎</span> AI Companion</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Community</div>
+      <a class="nav-item" href="circles.html"><span class="nav-icon">⬡</span> My Circles</a>
+      <a class="nav-item" href="devotion.html"><span class="nav-icon">☽</span> Devotion Feed <span class="nav-badge">4</span></a>
+      <a class="nav-item" href="explore.html"><span class="nav-icon">✦</span> Explore</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div>
+      <div class="nav-section-label">Personal</div>
+      <a class="nav-item active" href="journal.html"><span class="nav-icon">◑</span> My Journal</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙</span> Settings</a>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-row">
+        <div class="avatar-btn" style="width:36px;height:36px;font-size:13px">YF</div>
+        <div><div class="user-info-name">Yafet</div><div class="user-info-role">Daily Devotion</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" style="display:grid;grid-template-columns:1fr 260px;gap:28px;align-items:start;height:auto">
+    <div>
+      <div class="page-header fade d1">
+        <div class="page-label">Personal · Private</div>
+        <h1 class="page-h1">My <em>Journal.</em></h1>
+      </div>
+
+      <div class="journal-compose fade d2">
+        <div class="section-label">New Entry</div>
+        <div class="compose-verse-ref">
+          <input class="verse-ref-input" placeholder="Scripture reference (optional)…"/>
+          <button class="btn btn-green" onclick="location.href='ai.html'">Ask AI for verse ◎</button>
+        </div>
+        <textarea class="journal-textarea" rows="5" placeholder="What is God saying to you today? Write freely…"></textarea>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="tag-row" style="margin:0">
+            <button class="tag-pill active">Reflection</button>
+            <button class="tag-pill">Prayer</button>
+            <button class="tag-pill">Gratitude</button>
+            <button class="tag-pill">Question</button>
+          </div>
+          <button class="btn btn-fill">Save Entry</button>
+        </div>
+      </div>
+
+      <div class="fade d3">
+        <div class="section-label">Past Entries · 28 total</div>
+
+        <div class="entry-card">
+          <div class="entry-date">April 6, 2026 · Yesterday</div>
+          <div class="entry-verse">Psalm 23:1 — "The Lord is my shepherd, I lack nothing."</div>
+          <div class="entry-preview">Spent this morning just sitting with the first verse of Psalm 23. There is something about the phrase "I lack nothing" that keeps arresting me. In every area I feel lacking — provision, direction, confidence — the shepherd says I have everything I need...</div>
+          <div class="entry-footer">
+            <div class="entry-mood">Reflection</div>
+            <div style="font-size:10px;color:var(--faint);margin-left:auto">3 min read</div>
+          </div>
+        </div>
+
+        <div class="entry-card">
+          <div class="entry-date">April 4, 2026</div>
+          <div class="entry-verse">Romans 8:28 — "All things work together for good…"</div>
+          <div class="entry-preview">Hard week. I keep returning to this verse not because it feels true right now, but because I want to trust that it is. Faith isn't feeling — it's holding onto what you know even when you can't see it...</div>
+          <div class="entry-footer">
+            <div class="entry-mood">Prayer</div>
+            <div style="font-size:10px;color:var(--faint);margin-left:auto">2 min read</div>
+          </div>
+        </div>
+
+        <div class="entry-card">
+          <div class="entry-date">April 1, 2026</div>
+          <div class="entry-verse">Isaiah 40:31</div>
+          <div class="entry-preview">Started my reading plan in John today. Got to chapter 3 and paused on verse 16 for a long time. "God so loved the world" — not just humanity in the abstract but me, specifically, in my mess...</div>
+          <div class="entry-footer">
+            <div class="entry-mood">Gratitude</div>
+            <div style="font-size:10px;color:var(--faint);margin-left:auto">4 min read</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px" class="fade d4">
+      <div>
+        <div class="section-label">Stats</div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;margin-bottom:16px">
+            <div style="text-align:center"><div style="font-family:var(--serif);font-size:26px;font-weight:900;color:var(--gold)">28</div><div style="font-size:9px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em">Entries</div></div>
+            <div style="text-align:center"><div style="font-family:var(--serif);font-size:26px;font-weight:900;color:var(--green2)">7</div><div style="font-size:9px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em">This Month</div></div>
+            <div style="text-align:center"><div style="font-family:var(--serif);font-size:26px;font-weight:900;color:var(--muted)">14</div><div style="font-size:9px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em">Verses</div></div>
+          </div>
+          <div style="font-size:10px;color:var(--faint);margin-bottom:6px">April writing goal · 10 entries</div>
+          <div class="progress-bar-wrap"><div class="progress-bar" style="width:70%"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--faint);margin-top:4px"><span>7 done</span><span>3 left</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">AI Reflection Prompt</div>
+        <div style="background:linear-gradient(135deg,rgba(126, 87, 46,.15),rgba(114, 91, 63,.05));border:1px solid rgba(126, 87, 46,.3);border-radius:2px;padding:16px">
+          <div style="font-family:var(--serif);font-size:13px;font-style:italic;color:var(--muted);line-height:1.65;margin-bottom:12px">"What has God been teaching you about trust this week?"</div>
+          <button class="btn btn-green" style="width:100%" onclick="location.href='ai.html'">Reflect with AI ◎</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+  document.querySelectorAll('.tag-pill').forEach(p=>p.addEventListener('click',()=>{document.querySelectorAll('.tag-pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');}));
+</script>
+</body>
+</html>

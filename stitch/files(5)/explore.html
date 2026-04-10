@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>The Word — Explore</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .explore-search { display:flex; gap:8px; margin-bottom:24px; }
+    .explore-input { flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:2px; padding:11px 16px; font-family:var(--serif); font-size:15px; color:var(--text); outline:none; transition:border-color .2s; }
+    .explore-input::placeholder { color:var(--faint); font-style:italic; }
+    .explore-input:focus { border-color:var(--border2); }
+
+    .topic-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:10px; margin-bottom:28px; }
+    .topic-card {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:16px 14px; cursor:pointer; transition:all .2s; text-align:center;
+    }
+    .topic-card:hover { border-color:var(--border2); transform:translateY(-2px); }
+    .topic-icon { font-size:22px; margin-bottom:8px; }
+    .topic-name { font-family:var(--serif); font-size:14px; font-weight:600; color:var(--muted); }
+    .topic-count { font-size:10px; color:var(--faint); margin-top:3px; }
+
+    .trending-item { display:flex; align-items:flex-start; gap:14px; padding:14px 0; border-bottom:1px solid var(--ghost); }
+    .trending-item:last-child { border-bottom:none; }
+    .trending-num { font-family:var(--serif); font-size:22px; font-weight:900; color:var(--border2); min-width:28px; padding-top:2px; }
+    .trending-verse { font-family:var(--serif); font-size:15px; font-style:italic; color:var(--muted); margin-bottom:3px; }
+    .trending-count { font-size:10px; color:var(--faint); }
+  </style>
+  <script>if(!localStorage.getItem('authToken')) window.location.href = '../login.html';</script>
+</head>
+<body>
+<div class="shell no-right">
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo"><div class="logo-dot"></div> The Word</a>
+    <div class="topbar-right">
+      <div class="streak-badge">🔥 7 Day Streak</div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar-btn">YF</div>
+    </div>
+  </header>
+  <aside class="sidebar">
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="index.html"><span class="nav-icon">⌂</span> Home</a>
+      <a class="nav-item" href="scripture.html"><span class="nav-icon">📖</span> Scripture</a>
+      <a class="nav-item" href="prayer.html"><span class="nav-icon">🙏</span> Prayer Wall <span class="nav-badge">12</span></a>
+      <a class="nav-item" href="ai.html"><span class="nav-icon">◎</span> AI Companion</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Community</div>
+      <a class="nav-item" href="circles.html"><span class="nav-icon">⬡</span> My Circles</a>
+      <a class="nav-item" href="devotion.html"><span class="nav-icon">☽</span> Devotion Feed <span class="nav-badge">4</span></a>
+      <a class="nav-item active" href="explore.html"><span class="nav-icon">✦</span> Explore</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div>
+      <div class="nav-section-label">Personal</div>
+      <a class="nav-item" href="journal.html"><span class="nav-icon">◑</span> My Journal</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙</span> Settings</a>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-row">
+        <div class="avatar-btn" style="width:36px;height:36px;font-size:13px">YF</div>
+        <div><div class="user-info-name">Yafet</div><div class="user-info-role">Daily Devotion</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" style="display:grid;grid-template-columns:1fr 300px;gap:28px;align-items:start;height:auto">
+    <div>
+      <div class="page-header fade d1">
+        <div class="page-label">Discover</div>
+        <h1 class="page-h1">Explore the <em>community.</em></h1>
+      </div>
+      <div class="explore-search fade d2">
+        <input class="explore-input" placeholder="Search people, verses, circles, topics…"/>
+        <button class="btn btn-fill">Search</button>
+      </div>
+      <div class="fade d2">
+        <div class="section-label">Browse by Topic</div>
+        <div class="topic-grid">
+          <div class="topic-card"><div class="topic-icon">🕊</div><div class="topic-name">Peace</div><div class="topic-count">2.4K posts</div></div>
+          <div class="topic-card"><div class="topic-icon">🔥</div><div class="topic-name">Faith</div><div class="topic-count">4.1K posts</div></div>
+          <div class="topic-card"><div class="topic-icon">🌿</div><div class="topic-name">Hope</div><div class="topic-count">1.8K posts</div></div>
+          <div class="topic-card"><div class="topic-icon">❤</div><div class="topic-name">Love</div><div class="topic-count">3.2K posts</div></div>
+          <div class="topic-card"><div class="topic-icon">💡</div><div class="topic-name">Wisdom</div><div class="topic-count">1.1K posts</div></div>
+          <div class="topic-card"><div class="topic-icon">🙌</div><div class="topic-name">Praise</div><div class="topic-count">2.7K posts</div></div>
+          <div class="topic-card"><div class="topic-icon">⚡</div><div class="topic-name">Strength</div><div class="topic-count">900 posts</div></div>
+          <div class="topic-card"><div class="topic-icon">✦</div><div class="topic-name">Grace</div><div class="topic-count">1.6K posts</div></div>
+        </div>
+      </div>
+
+      <div class="fade d3">
+        <div class="section-label">Trending Verses This Week</div>
+        <div class="card">
+          <div class="trending-item"><div class="trending-num">1</div><div><div class="trending-verse">Psalm 46:10 — "Be still and know that I am God."</div><div class="trending-count">1,240 reflections this week</div></div></div>
+          <div class="trending-item"><div class="trending-num">2</div><div><div class="trending-verse">Philippians 4:13 — "I can do all things through Christ…"</div><div class="trending-count">980 reflections</div></div></div>
+          <div class="trending-item"><div class="trending-num">3</div><div><div class="trending-verse">Romans 8:28 — "All things work together for good…"</div><div class="trending-count">741 reflections</div></div></div>
+          <div class="trending-item"><div class="trending-num">4</div><div><div class="trending-verse">Proverbs 3:5 — "Trust in the Lord with all your heart…"</div><div class="trending-count">612 reflections</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px" class="fade d4">
+      <div>
+        <div class="section-label">People to Follow</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          ${["Emmanuel K.|EK|Daily reader|rgba(126, 87, 46,.3)|#3A6B4A","Sarah M.|SM|Prayer Warrior|rgba(155,48,96,.3)|#9B3060","Pastor Joel|PJ|Teacher|rgba(122,92,58,.3)|#7A5C3A"].split('${').map(()=>'').join('')}
+        </div>
+        <div class="card" style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div class="pc-av" style="width:34px;height:34px;background:rgba(126, 87, 46,.3);border:1px solid rgba(126, 87, 46,.4);color:#3A6B4A">EK</div>
+          <div style="flex:1"><div style="font-family:var(--serif);font-size:13px;color:var(--muted)">Emmanuel K.</div><div style="font-size:10px;color:var(--faint)">Daily reader</div></div>
+          <button class="btn btn-ghost" style="font-size:9px;padding:4px 12px">Follow</button>
+        </div>
+        <div class="card" style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div class="pc-av" style="width:34px;height:34px;background:rgba(155,48,96,.3);border:1px solid rgba(155,48,96,.4);color:#9B3060">SM</div>
+          <div style="flex:1"><div style="font-family:var(--serif);font-size:13px;color:var(--muted)">Sarah M.</div><div style="font-size:10px;color:var(--faint)">Prayer Warrior</div></div>
+          <button class="btn btn-ghost" style="font-size:9px;padding:4px 12px">Follow</button>
+        </div>
+        <div class="card" style="display:flex;align-items:center;gap:10px">
+          <div class="pc-av" style="width:34px;height:34px;background:rgba(122,92,58,.3);border:1px solid rgba(122,92,58,.4);color:#7A5C3A">PJ</div>
+          <div style="flex:1"><div style="font-family:var(--serif);font-size:13px;color:var(--muted)">Pastor Joel</div><div style="font-size:10px;color:var(--faint)">Teacher · Verified</div></div>
+          <button class="btn btn-ghost" style="font-size:9px;padding:4px 12px">Follow</button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

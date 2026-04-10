@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>The Word — Scripture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .book-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:8px; margin-bottom:28px; }
+    .book-btn {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:12px 10px; text-align:center; cursor:pointer; transition:all .2s;
+      font-family:var(--serif); font-size:13px; color:var(--dim);
+    }
+    .book-btn:hover { border-color:var(--border2); color:var(--muted); }
+    .book-btn.active { border-color:var(--gold); color:var(--gold); background:rgba(114, 91, 63,.06); }
+    .book-btn small { display:block; font-family:var(--sans); font-size:9px; color:var(--faint); margin-top:3px; letter-spacing:.06em; text-transform:uppercase; }
+
+    .reader-wrap {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px; padding:28px 32px;
+    }
+    .reader-nav { display:flex; align-items:center; justify-content:space-between; margin-bottom:22px; }
+    .reader-title { font-family:var(--serif); font-size:20px; font-weight:700; color:var(--text); }
+    .reader-chapter { font-size:11px; color:var(--faint); margin-top:2px; }
+    .reader-nav-btns { display:flex; gap:8px; }
+
+    .verse-block { padding:12px 0; border-bottom:1px solid var(--ghost); display:flex; gap:14px; cursor:pointer; transition:background .15s; border-radius:2px; }
+    .verse-block:hover { background:rgba(255,255,255,.01); }
+    .verse-block:last-child { border-bottom:none; }
+    .verse-block.highlighted { background:rgba(114, 91, 63,.05); border-left:2px solid var(--gold); padding-left:12px; }
+    .v-num { font-family:var(--sans); font-size:10px; font-weight:500; color:var(--faint); min-width:20px; padding-top:2px; }
+    .v-text { font-family:var(--serif); font-size:16px; font-weight:400; color:var(--muted); line-height:1.75; flex:1; }
+
+    .reading-plan { background:var(--bg2); border:1px solid var(--border); border-radius:2px; padding:16px; }
+    .plan-item { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:1px solid var(--ghost); cursor:pointer; transition:opacity .2s; }
+    .plan-item:hover { opacity:.75; }
+    .plan-item:last-child { border-bottom:none; }
+    .plan-check { width:18px; height:18px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:9px; flex-shrink:0; }
+    .plan-check.done { background:var(--green); border-color:var(--green); color:var(--bg); }
+    .plan-label { font-size:12px; color:var(--dim); font-family:var(--serif); }
+    .plan-ref { font-size:10px; color:var(--faint); margin-top:1px; }
+
+    .search-bar {
+      display:flex; gap:8px; margin-bottom:20px;
+    }
+    .search-input {
+      flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:10px 14px; font-family:var(--sans); font-size:13px; color:var(--text);
+      outline:none; transition:border-color .2s;
+    }
+    .search-input::placeholder { color:var(--faint); }
+    .search-input:focus { border-color:var(--border2); }
+  </style>
+  <script>if(!localStorage.getItem('authToken')) window.location.href = '../login.html';</script>
+</head>
+<body>
+<div class="shell no-right">
+
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo"><div class="logo-dot"></div> The Word</a>
+    <div class="topbar-right">
+      <div class="streak-badge">🔥 7 Day Streak</div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar-btn">YF</div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="index.html"><span class="nav-icon">⌂</span> Home</a>
+      <a class="nav-item active" href="scripture.html"><span class="nav-icon">📖</span> Scripture</a>
+      <a class="nav-item" href="prayer.html"><span class="nav-icon">🙏</span> Prayer Wall <span class="nav-badge">12</span></a>
+      <a class="nav-item" href="ai.html"><span class="nav-icon">◎</span> AI Companion</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Community</div>
+      <a class="nav-item" href="circles.html"><span class="nav-icon">⬡</span> My Circles</a>
+      <a class="nav-item" href="devotion.html"><span class="nav-icon">☽</span> Devotion Feed <span class="nav-badge">4</span></a>
+      <a class="nav-item" href="explore.html"><span class="nav-icon">✦</span> Explore</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div>
+      <div class="nav-section-label">Personal</div>
+      <a class="nav-item" href="journal.html"><span class="nav-icon">◑</span> My Journal</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙</span> Settings</a>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-row">
+        <div class="avatar-btn" style="width:36px;height:36px;font-size:13px">YF</div>
+        <div><div class="user-info-name">Yafet</div><div class="user-info-role">Daily Devotion</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" style="display:grid;grid-template-columns:1fr 280px;gap:28px;align-items:start;height:auto;overflow:visible">
+
+    <div>
+      <div class="page-header fade d1">
+        <div class="page-label">Scripture</div>
+        <h1 class="page-h1">Read the <em>Word.</em></h1>
+      </div>
+
+      <div class="search-bar fade d2">
+        <input class="search-input" placeholder="Search scripture (e.g. 'hope', 'John 3:16')…" />
+        <button class="btn btn-fill">Search</button>
+        <button class="btn btn-green" onclick="location.href='ai.html'">Ask AI ◎</button>
+      </div>
+
+      <div class="fade d2" style="margin-bottom:20px">
+        <div class="section-label">Books</div>
+        <div class="book-grid">
+          <div class="book-btn">Genesis<small>OT</small></div>
+          <div class="book-btn">Psalms<small>OT</small></div>
+          <div class="book-btn">Proverbs<small>OT</small></div>
+          <div class="book-btn">Isaiah<small>OT</small></div>
+          <div class="book-btn active">John<small>NT</small></div>
+          <div class="book-btn">Romans<small>NT</small></div>
+          <div class="book-btn">Philippians<small>NT</small></div>
+          <div class="book-btn">Hebrews<small>NT</small></div>
+          <div class="book-btn">James<small>NT</small></div>
+          <div class="book-btn">Revelation<small>NT</small></div>
+        </div>
+      </div>
+
+      <div class="reader-wrap fade d3">
+        <div class="reader-nav">
+          <div>
+            <div class="reader-title">John</div>
+            <div class="reader-chapter">Chapter 4 · New International Version</div>
+          </div>
+          <div class="reader-nav-btns">
+            <button class="btn btn-ghost">← Prev</button>
+            <button class="btn btn-ghost">Next →</button>
+          </div>
+        </div>
+
+        <div class="verse-block highlighted">
+          <div class="v-num">1</div>
+          <div class="v-text">Now Jesus learned that the Pharisees had heard that he was gaining and baptizing more disciples than John —</div>
+        </div>
+        <div class="verse-block">
+          <div class="v-num">2</div>
+          <div class="v-text">although in fact it was not Jesus who baptized, but his disciples.</div>
+        </div>
+        <div class="verse-block">
+          <div class="v-num">3</div>
+          <div class="v-text">So he left Judea and went back once more to Galilee.</div>
+        </div>
+        <div class="verse-block">
+          <div class="v-num">4</div>
+          <div class="v-text">Now he had to go through Samaria.</div>
+        </div>
+        <div class="verse-block">
+          <div class="v-num">5</div>
+          <div class="v-text">So he came to a town in Samaria called Sychar, near the plot of ground Jacob had given to his son Joseph.</div>
+        </div>
+        <div class="verse-block">
+          <div class="v-num">6</div>
+          <div class="v-text">Jacob's well was there, and Jesus, tired as he was from the journey, sat down by the well. It was about noon.</div>
+        </div>
+        <div class="verse-block">
+          <div class="v-num">7</div>
+          <div class="v-text">When a Samaritan woman came to draw water, Jesus said to her, "Will you give me a drink?"</div>
+        </div>
+        <div class="verse-block">
+          <div class="v-num">8</div>
+          <div class="v-text">His disciples had gone into the town to buy food.</div>
+        </div>
+        <div class="verse-block">
+          <div class="v-num">9</div>
+          <div class="v-text">The Samaritan woman said to him, "You are a Jew and I am a Samaritan woman. How can you ask me for a drink?" (For Jews do not associate with Samaritans.)</div>
+        </div>
+        <div class="verse-block">
+          <div class="v-num">10</div>
+          <div class="v-text">Jesus answered her, "If you knew the gift of God and who it is that asks you for a drink, you would have asked him and he would have given you living water."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side column -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+      <div class="fade d4">
+        <div class="section-label">Reading Plan</div>
+        <div class="reading-plan">
+          <div class="plan-item"><div class="plan-check done">✓</div><div><div class="plan-label">John 1–2</div><div class="plan-ref">Completed · Mon</div></div></div>
+          <div class="plan-item"><div class="plan-check done">✓</div><div><div class="plan-label">John 3</div><div class="plan-ref">Completed · Tue</div></div></div>
+          <div class="plan-item"><div class="plan-check done">✓</div><div><div class="plan-label">John 4</div><div class="plan-ref">In progress · Today</div></div></div>
+          <div class="plan-item"><div class="plan-check"></div><div><div class="plan-label">John 5–6</div><div class="plan-ref">Tomorrow</div></div></div>
+          <div class="plan-item"><div class="plan-check"></div><div><div class="plan-label">John 7–8</div><div class="plan-ref">Thu</div></div></div>
+        </div>
+      </div>
+
+      <div class="fade d5">
+        <div class="section-label">Highlights</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="card" style="border-left:2px solid var(--gold)">
+            <div style="font-family:var(--serif);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:5px">"God so loved the world…"</div>
+            <div style="font-size:10px;color:var(--faint)">John 3:16 · Highlighted Mar 28</div>
+          </div>
+          <div class="card" style="border-left:2px solid var(--green)">
+            <div style="font-family:var(--serif);font-size:13px;font-style:italic;color:var(--muted);margin-bottom:5px">"Living water…"</div>
+            <div style="font-size:10px;color:var(--faint)">John 4:10 · Today</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+<script>
+  document.querySelectorAll('.book-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.book-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');}));
+  document.querySelectorAll('.verse-block').forEach(v=>v.addEventListener('click',()=>v.classList.toggle('highlighted')));
+</script>
+</body>
+</html>

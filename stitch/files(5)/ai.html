@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>The Word — AI Companion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .ai-shell {
+      display:grid; grid-template-columns:220px 1fr 300px;
+      grid-template-rows:60px 1fr; min-height:100vh;
+    }
+    .chat-area {
+      display:flex; flex-direction:column;
+      height:calc(100vh - 60px); overflow:hidden;
+    }
+    .chat-header {
+      padding:18px 28px; border-bottom:1px solid var(--ghost);
+      display:flex; align-items:center; gap:12px; flex-shrink:0;
+    }
+    .ai-orb {
+      width:36px; height:36px; border-radius:50%;
+      background:linear-gradient(135deg,rgba(126, 87, 46,.4),rgba(114, 91, 63,.2));
+      border:1px solid rgba(126, 87, 46,.5);
+      display:flex; align-items:center; justify-content:center;
+      font-size:16px; flex-shrink:0;
+    }
+    .ai-name { font-family:var(--serif); font-size:16px; font-weight:600; color:var(--text); }
+    .ai-status { font-size:10px; color:var(--green2); display:flex; align-items:center; gap:5px; }
+    .ai-status::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--green2); }
+    .model-badge {
+      margin-left:auto; font-size:9px; font-weight:500; letter-spacing:.08em; text-transform:uppercase;
+      color:var(--faint); background:var(--bg3); border:1px solid var(--border);
+      padding:4px 10px; border-radius:1px;
+    }
+
+    .messages {
+      flex:1; overflow-y:auto; padding:24px 28px;
+      display:flex; flex-direction:column; gap:18px;
+    }
+    .messages::-webkit-scrollbar { width:3px; }
+    .messages::-webkit-scrollbar-thumb { background:var(--border); }
+
+    .msg { display:flex; gap:12px; max-width:680px; }
+    .msg.user { flex-direction:row-reverse; margin-left:auto; }
+    .msg-av {
+      width:32px; height:32px; border-radius:50%; flex-shrink:0;
+      display:flex; align-items:center; justify-content:center;
+      font-size:13px; margin-top:2px;
+    }
+    .msg-av.ai-av {
+      background:linear-gradient(135deg,rgba(126, 87, 46,.4),rgba(114, 91, 63,.2));
+      border:1px solid rgba(126, 87, 46,.4); font-size:15px;
+    }
+    .msg-av.user-av {
+      background:rgba(126, 87, 46,.3); border:1px solid rgba(126, 87, 46,.5);
+      font-family:var(--serif); font-weight:700; font-size:11px; color:var(--green2);
+    }
+    .msg-bubble {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:14px 16px; font-size:14px; line-height:1.7; color:var(--muted);
+    }
+    .msg.user .msg-bubble {
+      background:rgba(114, 91, 63,.08); border-color:rgba(114, 91, 63,.2); color:var(--text);
+    }
+    .msg-verse {
+      background:var(--bg3); border-left:2px solid var(--gold); border-radius:2px;
+      padding:10px 13px; margin:10px 0;
+    }
+    .msg-verse-ref { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:rgba(114, 91, 63,.4); margin-bottom:4px; }
+    .msg-verse-text { font-family:var(--serif); font-size:15px; font-style:italic; color:var(--text); }
+    .msg-time { font-size:9px; color:var(--faint); margin-top:5px; padding:0 4px; }
+
+    .typing-indicator { display:flex; gap:4px; align-items:center; padding:14px 16px; }
+    .typing-dot { width:6px; height:6px; border-radius:50%; background:var(--faint); animation:bounce .8s infinite; }
+    .typing-dot:nth-child(2) { animation-delay:.15s; }
+    .typing-dot:nth-child(3) { animation-delay:.3s; }
+    @keyframes bounce { 0%,80%,100%{transform:translateY(0)} 40%{transform:translateY(-6px)} }
+
+    .chat-input-area {
+      padding:16px 28px; border-top:1px solid var(--ghost); flex-shrink:0;
+    }
+    .quick-prompts { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .qp-btn {
+      font-size:10px; font-weight:400; padding:5px 12px; border-radius:1px;
+      border:1px solid var(--border); background:transparent; color:var(--dim);
+      cursor:pointer; transition:all .15s; font-family:var(--sans);
+    }
+    .qp-btn:hover { border-color:var(--border2); color:var(--muted); }
+    .input-row { display:flex; gap:8px; }
+    .chat-input {
+      flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:12px 16px; font-family:var(--serif); font-size:15px; color:var(--text);
+      outline:none; transition:border-color .2s; resize:none;
+    }
+    .chat-input::placeholder { color:var(--faint); font-style:italic; }
+    .chat-input:focus { border-color:var(--border2); }
+    .send-btn {
+      background:var(--gold); color:var(--bg); border:none; border-radius:2px;
+      padding:0 20px; font-size:16px; cursor:pointer; transition:background .2s; flex-shrink:0;
+    }
+    .send-btn:hover { background:var(--gold2); }
+
+    /* right panel */
+    .suggestion-card { background:var(--bg2); border:1px solid var(--border); border-radius:2px; padding:14px; margin-bottom:8px; cursor:pointer; transition:border-color .2s; }
+    .suggestion-card:hover { border-color:var(--border2); }
+    .suggestion-label { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin-bottom:6px; }
+    .suggestion-text { font-family:var(--serif); font-size:13px; font-style:italic; color:var(--muted); line-height:1.6; }
+
+    .history-item { display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid var(--ghost); cursor:pointer; transition:opacity .2s; }
+    .history-item:hover { opacity:.75; }
+    .history-item:last-child { border-bottom:none; }
+    .history-icon { font-size:13px; margin-top:1px; color:var(--faint); }
+    .history-text { font-size:12px; color:var(--dim); line-height:1.5; }
+    .history-time { font-size:9px; color:var(--faint); margin-top:2px; }
+  </style>
+  <script>if(!localStorage.getItem('authToken')) window.location.href = '../login.html';</script>
+</head>
+<body>
+<div class="ai-shell">
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo"><div class="logo-dot"></div> The Word</a>
+    <div class="topbar-right">
+      <div class="streak-badge">🔥 7 Day Streak</div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar-btn">YF</div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="index.html"><span class="nav-icon">⌂</span> Home</a>
+      <a class="nav-item" href="scripture.html"><span class="nav-icon">📖</span> Scripture</a>
+      <a class="nav-item" href="prayer.html"><span class="nav-icon">🙏</span> Prayer Wall <span class="nav-badge">12</span></a>
+      <a class="nav-item active" href="ai.html"><span class="nav-icon">◎</span> AI Companion</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Community</div>
+      <a class="nav-item" href="circles.html"><span class="nav-icon">⬡</span> My Circles</a>
+      <a class="nav-item" href="devotion.html"><span class="nav-icon">☽</span> Devotion Feed <span class="nav-badge">4</span></a>
+      <a class="nav-item" href="explore.html"><span class="nav-icon">✦</span> Explore</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div>
+      <div class="nav-section-label">Personal</div>
+      <a class="nav-item" href="journal.html"><span class="nav-icon">◑</span> My Journal</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙</span> Settings</a>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-row">
+        <div class="avatar-btn" style="width:36px;height:36px;font-size:13px">YF</div>
+        <div><div class="user-info-name">Yafet</div><div class="user-info-role">Daily Devotion</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CHAT -->
+  <div class="chat-area">
+    <div class="chat-header">
+      <div class="ai-orb">◎</div>
+      <div>
+        <div class="ai-name">Scripture Companion</div>
+        <div class="ai-status">Running on Ollama · llama3</div>
+      </div>
+      <div class="model-badge">llama3 · local</div>
+    </div>
+
+    <div class="messages" id="messages">
+      <!-- AI welcome -->
+      <div class="msg fade d1">
+        <div class="msg-av ai-av">◎</div>
+        <div>
+          <div class="msg-bubble">
+            Peace be with you, Yafet. I'm your Scripture Companion — powered by Ollama running locally on your device.<br><br>
+            I can help you <strong>find verses</strong> for what you're feeling, <strong>explain passages</strong> you're reading, <strong>generate reflections</strong>, or <strong>suggest a prayer</strong>. What's on your heart today?
+            <div class="msg-verse">
+              <div class="msg-verse-ref">Today's Verse</div>
+              <div class="msg-verse-text">"Be still, and know that I am God." — Psalm 46:10</div>
+            </div>
+          </div>
+          <div class="msg-time">Just now</div>
+        </div>
+      </div>
+
+      <!-- User message -->
+      <div class="msg user fade d2">
+        <div class="msg-av user-av">YF</div>
+        <div>
+          <div class="msg-bubble">I've been feeling anxious about a big decision I need to make next week. Can you suggest some scriptures?</div>
+          <div class="msg-time" style="text-align:right">2 min ago</div>
+        </div>
+      </div>
+
+      <!-- AI reply -->
+      <div class="msg fade d3">
+        <div class="msg-av ai-av">◎</div>
+        <div>
+          <div class="msg-bubble">
+            I hear you — decisions can weigh heavy. Here are three scriptures that speak directly to anxiety and seeking God's guidance:
+            <div class="msg-verse">
+              <div class="msg-verse-ref">Proverbs 3:5–6</div>
+              <div class="msg-verse-text">"Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight."</div>
+            </div>
+            <div class="msg-verse">
+              <div class="msg-verse-ref">Philippians 4:6–7</div>
+              <div class="msg-verse-text">"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God."</div>
+            </div>
+            <div class="msg-verse">
+              <div class="msg-verse-ref">James 1:5</div>
+              <div class="msg-verse-text">"If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault."</div>
+            </div>
+            Would you like me to write a short prayer for this decision, or reflect deeper on any of these verses?
+          </div>
+          <div class="msg-time">1 min ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <div class="quick-prompts">
+        <button class="qp-btn" onclick="sendQuick(this)">Find a verse for anxiety</button>
+        <button class="qp-btn" onclick="sendQuick(this)">Explain today's verse</button>
+        <button class="qp-btn" onclick="sendQuick(this)">Write me a prayer</button>
+        <button class="qp-btn" onclick="sendQuick(this)">Reflect on John 4</button>
+      </div>
+      <div class="input-row">
+        <textarea class="chat-input" id="chat-input" rows="2" placeholder="Ask about scripture, request a reflection, or share what's on your heart…" onkeydown="handleKey(event)"></textarea>
+        <button class="send-btn" onclick="sendMessage()">↑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <aside class="right-panel fade d4">
+    <div>
+      <div class="rp-title">Try Asking</div>
+      <div class="suggestion-card" onclick="fillInput('I\'m feeling lost in my faith journey')">
+        <div class="suggestion-label">Feeling</div>
+        <div class="suggestion-text">"I'm feeling lost in my faith journey"</div>
+      </div>
+      <div class="suggestion-card" onclick="fillInput('What does the Bible say about forgiveness?')">
+        <div class="suggestion-label">Topic</div>
+        <div class="suggestion-text">"What does the Bible say about forgiveness?"</div>
+      </div>
+      <div class="suggestion-card" onclick="fillInput('Help me understand Romans 8')">
+        <div class="suggestion-label">Passage</div>
+        <div class="suggestion-text">"Help me understand Romans 8"</div>
+      </div>
+      <div class="suggestion-card" onclick="fillInput('Write a morning devotional for me')">
+        <div class="suggestion-label">Devotional</div>
+        <div class="suggestion-text">"Write a morning devotional for me"</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="rp-title">Model Settings</div>
+      <div class="card">
+        <div style="margin-bottom:12px">
+          <div style="font-size:10px;color:var(--faint);margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">Model</div>
+          <select style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--muted);padding:7px 10px;border-radius:1px;font-family:var(--sans);font-size:12px;outline:none">
+            <option>llama3</option>
+            <option>mistral</option>
+            <option>phi3</option>
+            <option>gemma2</option>
+          </select>
+        </div>
+        <div style="margin-bottom:12px">
+          <div style="font-size:10px;color:var(--faint);margin-bottom:5px;text-transform:uppercase;letter-spacing:.08em">Tone</div>
+          <select style="width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--muted);padding:7px 10px;border-radius:1px;font-family:var(--sans);font-size:12px;outline:none">
+            <option>Warm & Pastoral</option>
+            <option>Scholarly</option>
+            <option>Simple & Direct</option>
+          </select>
+        </div>
+        <div style="font-size:9px;color:var(--faint);letter-spacing:.06em">Running locally via Ollama on port 11434</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="rp-title">Recent Conversations</div>
+      <div class="history-item">
+        <div class="history-icon">◎</div>
+        <div><div class="history-text">Verses about strength in hardship</div><div class="history-time">Yesterday</div></div>
+      </div>
+      <div class="history-item">
+        <div class="history-icon">◎</div>
+        <div><div class="history-text">Reflection on John 3:16</div><div class="history-time">2 days ago</div></div>
+      </div>
+      <div class="history-item">
+        <div class="history-icon">◎</div>
+        <div><div class="history-text">Morning prayer for the week</div><div class="history-time">3 days ago</div></div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  function sendMessage() {
+    const input = document.getElementById('chat-input');
+    const text = input.value.trim();
+    if (!text) return;
+    addUserMsg(text);
+    input.value = '';
+    showTyping();
+    // Wire this to your Ollama backend:
+    // fetch('http://localhost:11434/api/generate', { method:'POST', body: JSON.stringify({ model:'llama3', prompt: text, stream:false }) })
+    //   .then(r => r.json()).then(d => { removeTyping(); addAiMsg(d.response); });
+    setTimeout(() => { removeTyping(); addAiMsg("I'm reflecting on that with you. Connect me to your Ollama backend at <code>localhost:11434</code> and I'll respond with scripture and guidance in real time."); }, 1400);
+  }
+
+  function addUserMsg(text) {
+    const msgs = document.getElementById('messages');
+    msgs.innerHTML += `<div class="msg user"><div class="msg-av user-av">YF</div><div><div class="msg-bubble">${text}</div><div class="msg-time" style="text-align:right">Just now</div></div></div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function addAiMsg(text) {
+    const msgs = document.getElementById('messages');
+    msgs.innerHTML += `<div class="msg"><div class="msg-av ai-av">◎</div><div><div class="msg-bubble">${text}</div><div class="msg-time">Just now</div></div></div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  let typingEl = null;
+  function showTyping() {
+    const msgs = document.getElementById('messages');
+    typingEl = document.createElement('div');
+    typingEl.className = 'msg';
+    typingEl.innerHTML = `<div class="msg-av ai-av">◎</div><div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div></div>`;
+    msgs.appendChild(typingEl);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping() { if (typingEl) { typingEl.remove(); typingEl = null; } }
+
+  function sendQuick(btn) { document.getElementById('chat-input').value = btn.textContent; sendMessage(); }
+  function fillInput(text) { document.getElementById('chat-input').value = text; document.getElementById('chat-input').focus(); }
+  function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+</script>
+</body>
+</html>

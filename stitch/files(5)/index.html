@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Word — Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .daily-verse {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-left: 3px solid var(--gold); border-radius: 2px;
+      padding: 24px 28px; margin-bottom: 24px; position: relative; overflow: hidden;
+    }
+    .daily-verse::before {
+      content: '"'; position: absolute; right: 16px; top: -16px;
+      font-family: var(--serif); font-size: 110px; font-weight: 900;
+      color: rgba(114, 91, 63,.05); line-height: 1; pointer-events: none;
+    }
+    .dv-label { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(114, 91, 63,.4); margin-bottom: 10px; }
+    .dv-quote { font-family: var(--serif); font-size: 19px; font-style: italic; font-weight: 400; color: var(--text); line-height: 1.6; margin-bottom: 10px; }
+    .dv-ref { font-size: 12px; color: var(--faint); }
+    .dv-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+
+    .quick-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 28px; }
+    .quick-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 2px;
+      padding: 18px 16px; cursor: pointer; transition: border-color .2s, transform .2s;
+      position: relative; overflow: hidden;
+    }
+    .quick-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .qc-icon { font-size: 18px; margin-bottom: 10px; }
+    .qc-label { font-size: 9px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); margin-bottom: 3px; }
+    .qc-value { font-family: var(--serif); font-size: 18px; font-weight: 700; color: var(--muted); }
+    .qc-sub { font-size: 10px; color: var(--faint); margin-top: 3px; }
+    .qc-line { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; }
+
+    .feed-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+
+    /* right panel */
+    .ai-card {
+      background: linear-gradient(135deg, rgba(126, 87, 46,.15), rgba(114, 91, 63,.05));
+      border: 1px solid rgba(126, 87, 46,.3); border-radius: 2px; padding: 16px;
+    }
+    .ai-label { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--green2); margin-bottom: 8px; }
+    .ai-text { font-family: var(--serif); font-size: 13px; font-style: italic; color: var(--muted); line-height: 1.6; margin-bottom: 12px; }
+
+    .progress-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; padding: 18px; }
+    .progress-big { font-family: var(--serif); font-size: 30px; font-weight: 900; color: var(--gold); line-height: 1; margin-bottom: 3px; }
+    .progress-sub { font-size: 11px; color: var(--dim); }
+    .progress-label { font-size: 10px; color: var(--faint); margin-bottom: 6px; margin-top: 14px; }
+    .progress-meta { display: flex; justify-content: space-between; font-size: 10px; color: var(--faint); }
+
+    .prayer-item { padding: 13px 0; border-bottom: 1px solid var(--ghost); }
+    .prayer-item:last-child { border-bottom: none; }
+    .prayer-user { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+    .prayer-av { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-weight: 700; font-size: 9px; flex-shrink: 0; }
+    .prayer-name { font-size: 12px; font-weight: 500; color: var(--muted); font-family: var(--serif); }
+    .prayer-time { font-size: 9px; color: var(--faint); }
+    .prayer-text { font-size: 12px; color: var(--dim); line-height: 1.65; margin-bottom: 7px; }
+
+    .circle-item { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--ghost); cursor: pointer; transition: opacity .2s; }
+    .circle-item:hover { opacity: .7; }
+    .circle-item:last-child { border-bottom: none; }
+    .circle-icon { width: 32px; height: 32px; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .circle-name { font-size: 13px; font-weight: 500; color: var(--muted); font-family: var(--serif); }
+    .circle-activity { font-size: 10px; color: var(--faint); margin-top: 1px; }
+    .circle-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-left: auto; }
+  </style>
+  <script>if(!localStorage.getItem('authToken')) window.location.href = '../login.html';</script>
+</head>
+<body>
+<div class="shell">
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo"><div class="logo-dot"></div> The Word</a>
+    <div class="topbar-right">
+      <div class="streak-badge">🔥 7 Day Streak</div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar-btn">YF</div>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item active" href="index.html"><span class="nav-icon">⌂</span> Home</a>
+      <a class="nav-item" href="scripture.html"><span class="nav-icon">📖</span> Scripture</a>
+      <a class="nav-item" href="prayer.html"><span class="nav-icon">🙏</span> Prayer Wall <span class="nav-badge">12</span></a>
+      <a class="nav-item" href="ai.html"><span class="nav-icon">◎</span> AI Companion</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Community</div>
+      <a class="nav-item" href="circles.html"><span class="nav-icon">⬡</span> My Circles</a>
+      <a class="nav-item" href="devotion.html"><span class="nav-icon">☽</span> Devotion Feed <span class="nav-badge">4</span></a>
+      <a class="nav-item" href="explore.html"><span class="nav-icon">✦</span> Explore</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div>
+      <div class="nav-section-label">Personal</div>
+      <a class="nav-item" href="journal.html"><span class="nav-icon">◑</span> My Journal</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙</span> Settings</a>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-row">
+        <div class="avatar-btn" style="width:36px;height:36px;font-size:13px">YF</div>
+        <div><div class="user-info-name">Yafet</div><div class="user-info-role">Daily Devotion</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="page-header fade d1">
+      <div class="page-label" id="greet-label">Good morning</div>
+      <h1 class="page-h1">Welcome back, <em>Yafet.</em></h1>
+    </div>
+
+    <div class="daily-verse fade d2">
+      <div class="dv-label">Today's Scripture · April 7, 2026</div>
+      <div class="dv-quote">"Be still, and know that I am God; I will be exalted among the nations."</div>
+      <div class="dv-ref">— Psalm 46:10</div>
+      <div class="dv-actions">
+        <button class="btn btn-fill">Reflect on this</button>
+        <button class="btn btn-ghost">Share to Feed</button>
+        <button class="btn btn-green" onclick="location.href='ai.html'">Ask AI ◎</button>
+      </div>
+    </div>
+
+    <div class="fade d3">
+      <div class="section-label">Your Activity</div>
+      <div class="quick-grid">
+        <div class="quick-card" onclick="location.href='scripture.html'">
+          <div class="qc-icon">📖</div>
+          <div class="qc-label">Reading</div>
+          <div class="qc-value">John 4</div>
+          <div class="qc-sub">Continue where you left off</div>
+          <div class="qc-line" style="background:var(--gold)"></div>
+        </div>
+        <div class="quick-card" onclick="location.href='prayer.html'">
+          <div class="qc-icon">🙏</div>
+          <div class="qc-label">Prayer Wall</div>
+          <div class="qc-value">12 new</div>
+          <div class="qc-sub">Requests since yesterday</div>
+          <div class="qc-line" style="background:var(--green)"></div>
+        </div>
+        <div class="quick-card" onclick="location.href='circles.html'">
+          <div class="qc-icon">⬡</div>
+          <div class="qc-label">My Circle</div>
+          <div class="qc-value">5 posts</div>
+          <div class="qc-sub">New in Daily Devotion</div>
+          <div class="qc-line" style="background:#7A5C3A"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade d4">
+      <div class="feed-header">
+        <div class="section-label" style="margin-bottom:0">Community Feed</div>
+        <div class="tag-row" style="margin-bottom:0">
+          <button class="tag-pill active">All</button>
+          <button class="tag-pill">#hope</button>
+          <button class="tag-pill">#faith</button>
+          <button class="tag-pill">#peace</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="pc-top">
+          <div class="pc-av" style="background:rgba(74,139,92,.2);border:1px solid rgba(74,139,92,.4);color:#4A8B5C">GM</div>
+          <div><div class="pc-name">Grace M.</div><div class="pc-time">2 min ago</div></div>
+          <div class="pc-tag">#strength</div>
+        </div>
+        <div class="pc-scripture"><div class="pc-s-label">Scripture</div><div class="pc-verse">Philippians 4:13</div></div>
+        <div class="pc-ref-text">I can do all things through Christ who strengthens me. Needed this reminder today.</div>
+        <div class="pc-actions">
+          <button class="pc-btn on">🙏 Praying · 15</button>
+          <button class="pc-btn">💬 Reply</button>
+          <button class="pc-btn">↗ Share</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="pc-top">
+          <div class="pc-av" style="background:rgba(122,92,58,.2);border:1px solid rgba(122,92,58,.4);color:#7A5C3A">DK</div>
+          <div><div class="pc-name">David K.</div><div class="pc-time">18 min ago</div></div>
+          <div class="pc-tag">#peace</div>
+        </div>
+        <div class="pc-scripture"><div class="pc-s-label">Scripture</div><div class="pc-verse">Psalm 23:1</div></div>
+        <div class="pc-ref-text">The Lord is my shepherd, I lack nothing. There is rest in that truth.</div>
+        <div class="pc-actions">
+          <button class="pc-btn">🙏 Pray · 32</button>
+          <button class="pc-btn">💬 Reply</button>
+          <button class="pc-btn">↗ Share</button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="pc-top">
+          <div class="pc-av" style="background:rgba(92,74,139,.2);border:1px solid rgba(92,74,139,.4);color:#5C4A8B">MT</div>
+          <div><div class="pc-name">Miriam T.</div><div class="pc-time">1 hr ago</div></div>
+          <div class="pc-tag">#faith</div>
+        </div>
+        <div class="pc-scripture"><div class="pc-s-label">Scripture</div><div class="pc-verse">Romans 8:28</div></div>
+        <div class="pc-ref-text">All things work together for good. Even the confusion. Even the waiting.</div>
+        <div class="pc-actions">
+          <button class="pc-btn">🙏 Pray · 7</button>
+          <button class="pc-btn">💬 Reply</button>
+          <button class="pc-btn">↗ Share</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- RIGHT PANEL -->
+  <aside class="right-panel fade d5">
+    <div>
+      <div class="rp-title">AI Companion</div>
+      <div class="ai-card">
+        <div class="ai-label">◎ Suggestion for you</div>
+        <div class="ai-text">"Based on your recent readings in John, you might find comfort in Isaiah 43:2 today."</div>
+        <button class="btn btn-green" onclick="location.href='ai.html'">Explore this verse →</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="rp-title">This Week</div>
+      <div class="progress-card">
+        <div style="display:flex;gap:16px;margin-bottom:14px">
+          <div><div class="progress-big">7</div><div class="progress-sub">Day streak</div></div>
+          <div style="border-left:1px solid var(--border);padding-left:16px">
+            <div class="progress-big" style="color:var(--green2)">14</div><div class="progress-sub">Verses read</div>
+          </div>
+        </div>
+        <div class="progress-label">Weekly goal · 20 verses</div>
+        <div class="progress-bar-wrap"><div class="progress-bar" style="width:70%"></div></div>
+        <div class="progress-meta"><span>14 done</span><span>6 left</span></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="rp-title">Prayer Wall · Recent</div>
+      <div class="prayer-item">
+        <div class="prayer-user">
+          <div class="prayer-av" style="background:rgba(155,48,96,.2);border:1px solid rgba(155,48,96,.4);color:#9B3060">AF</div>
+          <div><div class="prayer-name">Abigail F.</div><div class="prayer-time">5 min ago</div></div>
+        </div>
+        <div class="prayer-text">Pray for my mother's surgery tomorrow.</div>
+        <button class="btn btn-ghost" style="font-size:9px;padding:4px 10px">🙏 Pray · 38</button>
+      </div>
+      <div class="prayer-item">
+        <div class="prayer-user">
+          <div class="prayer-av" style="background:rgba(92,107,42,.2);border:1px solid rgba(92,107,42,.4);color:#5C6B2A">SO</div>
+          <div><div class="prayer-name">Samuel O.</div><div class="prayer-time">42 min ago</div></div>
+        </div>
+        <div class="prayer-text">Struggling with anxiety at work. Need peace.</div>
+        <button class="btn btn-ghost" style="font-size:9px;padding:4px 10px">🙏 Pray · 17</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="rp-title">My Circles</div>
+      <div class="circle-item" onclick="location.href='circles.html'">
+        <div class="circle-icon" style="background:rgba(114, 91, 63,.1);color:var(--gold)">☽</div>
+        <div><div class="circle-name">Daily Devotion</div><div class="circle-activity">5 new posts</div></div>
+        <div class="circle-dot"></div>
+      </div>
+      <div class="circle-item" onclick="location.href='circles.html'">
+        <div class="circle-icon" style="background:rgba(217, 167, 119,.1);color:var(--green2)">⬡</div>
+        <div><div class="circle-name">Prayer Warriors</div><div class="circle-activity">2 new requests</div></div>
+        <div class="circle-dot" style="background:var(--gold)"></div>
+      </div>
+    </div>
+  </aside>
+
+</div>
+<script>
+  const h = new Date().getHours();
+  document.getElementById('greet-label').textContent = h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+  document.querySelectorAll('.tag-pill').forEach(p=>p.addEventListener('click',()=>{document.querySelectorAll('.tag-pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');}));
+  document.querySelectorAll('.pc-btn').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('on')));
+</script>
+</body>
+</html>

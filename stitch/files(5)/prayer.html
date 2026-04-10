@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>The Word — Prayer Wall</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .prayer-compose {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:20px 22px; margin-bottom:24px;
+    }
+    .compose-label { font-size:9px; letter-spacing:.14em; text-transform:uppercase; color:var(--green); margin-bottom:12px; }
+    .compose-textarea {
+      width:100%; background:var(--bg3); border:1px solid var(--border); border-radius:2px;
+      padding:12px 14px; font-family:var(--serif); font-size:15px; color:var(--muted);
+      resize:none; outline:none; line-height:1.65; transition:border-color .2s; margin-bottom:12px;
+    }
+    .compose-textarea::placeholder { color:var(--faint); font-style:italic; }
+    .compose-textarea:focus { border-color:var(--border2); }
+    .compose-footer { display:flex; align-items:center; justify-content:space-between; }
+    .compose-type { display:flex; gap:6px; }
+    .type-pill {
+      font-size:9px; font-weight:500; letter-spacing:.08em; text-transform:uppercase;
+      padding:4px 11px; border-radius:1px; cursor:pointer; transition:all .15s;
+      border:1px solid var(--border); background:transparent; color:var(--faint); font-family:var(--sans);
+    }
+    .type-pill.active { border-color:var(--gold); color:var(--gold); background:rgba(114, 91, 63,.06); }
+
+    .prayer-card {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px;
+      padding:18px 20px; margin-bottom:10px; transition:border-color .2s;
+    }
+    .prayer-card:hover { border-color:var(--border2); }
+    .prayer-type-badge {
+      font-size:8px; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+      padding:2px 8px; border-radius:1px; margin-left:auto;
+    }
+    .badge-request { color:#E8A09B; background:rgba(232,160,155,.08); border:1px solid rgba(232,160,155,.2); }
+    .badge-praise  { color:var(--gold); background:rgba(114, 91, 63,.08); border:1px solid rgba(114, 91, 63,.2); }
+    .badge-intercession { color:var(--green2); background:rgba(217, 167, 119,.08); border:1px solid rgba(217, 167, 119,.2); }
+
+    .prayer-count { display:flex; gap:6px; align-items:center; font-size:11px; color:var(--faint); margin-top:10px; }
+    .prayer-count span { color:var(--green2); font-weight:500; }
+
+    /* right panel stats */
+    .stat-row { display:flex; gap:10px; margin-bottom:16px; }
+    .stat-mini { flex:1; background:var(--bg2); border:1px solid var(--border); border-radius:2px; padding:14px 12px; text-align:center; }
+    .stat-num { font-family:var(--serif); font-size:24px; font-weight:900; color:var(--gold); line-height:1; margin-bottom:3px; }
+    .stat-lbl { font-size:9px; color:var(--faint); text-transform:uppercase; letter-spacing:.08em; }
+
+    .answered-item { padding:12px 0; border-bottom:1px solid var(--ghost); }
+    .answered-item:last-child { border-bottom:none; }
+    .answered-badge { display:inline-block; font-size:8px; background:rgba(126, 87, 46,.2); color:var(--green2); border:1px solid rgba(126, 87, 46,.3); padding:2px 8px; border-radius:1px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px; }
+    .answered-text { font-family:var(--serif); font-size:13px; font-style:italic; color:var(--muted); line-height:1.6; }
+    .answered-meta { font-size:10px; color:var(--faint); margin-top:4px; }
+  </style>
+  <script>if(!localStorage.getItem('authToken')) window.location.href = '../login.html';</script>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo"><div class="logo-dot"></div> The Word</a>
+    <div class="topbar-right">
+      <div class="streak-badge">🔥 7 Day Streak</div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar-btn">YF</div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="index.html"><span class="nav-icon">⌂</span> Home</a>
+      <a class="nav-item" href="scripture.html"><span class="nav-icon">📖</span> Scripture</a>
+      <a class="nav-item active" href="prayer.html"><span class="nav-icon">🙏</span> Prayer Wall <span class="nav-badge">12</span></a>
+      <a class="nav-item" href="ai.html"><span class="nav-icon">◎</span> AI Companion</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Community</div>
+      <a class="nav-item" href="circles.html"><span class="nav-icon">⬡</span> My Circles</a>
+      <a class="nav-item" href="devotion.html"><span class="nav-icon">☽</span> Devotion Feed <span class="nav-badge">4</span></a>
+      <a class="nav-item" href="explore.html"><span class="nav-icon">✦</span> Explore</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div>
+      <div class="nav-section-label">Personal</div>
+      <a class="nav-item" href="journal.html"><span class="nav-icon">◑</span> My Journal</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙</span> Settings</a>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-row">
+        <div class="avatar-btn" style="width:36px;height:36px;font-size:13px">YF</div>
+        <div><div class="user-info-name">Yafet</div><div class="user-info-role">Daily Devotion</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-header fade d1">
+      <div class="page-label">Prayer Wall</div>
+      <h1 class="page-h1">Stand in <em>agreement.</em></h1>
+    </div>
+
+    <div class="prayer-compose fade d2">
+      <div class="compose-label">Share a request or testimony</div>
+      <textarea class="compose-textarea" rows="3" placeholder="Lord, I ask for your guidance in…"></textarea>
+      <div class="compose-footer">
+        <div class="compose-type">
+          <button class="type-pill active">Request</button>
+          <button class="type-pill">Praise</button>
+          <button class="type-pill">Intercession</button>
+        </div>
+        <button class="btn btn-fill">Post Prayer 🙏</button>
+      </div>
+    </div>
+
+    <div class="fade d3">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div class="section-label" style="margin:0">12 new requests today</div>
+        <div class="tag-row" style="margin:0">
+          <button class="tag-pill active">All</button>
+          <button class="tag-pill">Request</button>
+          <button class="tag-pill">Praise</button>
+          <button class="tag-pill">Intercession</button>
+        </div>
+      </div>
+
+      <div class="prayer-card">
+        <div class="pc-top">
+          <div class="pc-av" style="background:rgba(155,48,96,.2);border:1px solid rgba(155,48,96,.4);color:#9B3060">AF</div>
+          <div><div class="pc-name">Abigail F.</div><div class="pc-time">5 min ago</div></div>
+          <div class="prayer-type-badge badge-request">Request</div>
+        </div>
+        <div class="pc-ref-text">Please pray for my mother's surgery tomorrow morning. The doctors are confident but I'm trusting God completely for a miracle and full recovery. Thank you all so much.</div>
+        <div class="prayer-count">🙏 <span>38 people</span> praying for this</div>
+        <div class="pc-actions" style="margin-top:12px">
+          <button class="pc-btn">🙏 Pray for this</button>
+          <button class="pc-btn">💬 Encourage</button>
+        </div>
+      </div>
+
+      <div class="prayer-card">
+        <div class="pc-top">
+          <div class="pc-av" style="background:rgba(126, 87, 46,.2);border:1px solid rgba(126, 87, 46,.4);color:#3A6B4A">NR</div>
+          <div><div class="pc-name">Naomi R.</div><div class="pc-time">28 min ago</div></div>
+          <div class="prayer-type-badge badge-praise">Praise</div>
+        </div>
+        <div class="pc-ref-text">God answered prayer! My son got into university. I posted a request here 2 months ago and you all prayed. He got in. God is faithful, always.</div>
+        <div class="prayer-count">🙏 <span>54 people</span> rejoicing with this</div>
+        <div class="pc-actions" style="margin-top:12px">
+          <button class="pc-btn on">🙌 Rejoice · 54</button>
+          <button class="pc-btn">💬 Reply</button>
+        </div>
+      </div>
+
+      <div class="prayer-card">
+        <div class="pc-top">
+          <div class="pc-av" style="background:rgba(92,107,42,.2);border:1px solid rgba(92,107,42,.4);color:#5C6B2A">SO</div>
+          <div><div class="pc-name">Samuel O.</div><div class="pc-time">42 min ago</div></div>
+          <div class="prayer-type-badge badge-request">Request</div>
+        </div>
+        <div class="pc-ref-text">Struggling with anxiety at work. New manager has been very difficult and I feel overwhelmed. Pray for peace, clarity, and God's wisdom in how I navigate this.</div>
+        <div class="prayer-count">🙏 <span>17 people</span> praying for this</div>
+        <div class="pc-actions" style="margin-top:12px">
+          <button class="pc-btn">🙏 Pray for this</button>
+          <button class="pc-btn">💬 Encourage</button>
+        </div>
+      </div>
+
+      <div class="prayer-card">
+        <div class="pc-top">
+          <div class="pc-av" style="background:rgba(92,74,139,.2);border:1px solid rgba(92,74,139,.4);color:#5C4A8B">JL</div>
+          <div><div class="pc-name">Joshua L.</div><div class="pc-time">1 hr ago</div></div>
+          <div class="prayer-type-badge badge-intercession">Intercession</div>
+        </div>
+        <div class="pc-ref-text">Interceding for our nation's leaders. That God would grant wisdom, humility, and a heart for justice to those in authority. Join me in this prayer.</div>
+        <div class="prayer-count">🙏 <span>91 people</span> standing in agreement</div>
+        <div class="pc-actions" style="margin-top:12px">
+          <button class="pc-btn">🙏 Agree in prayer</button>
+          <button class="pc-btn">💬 Reply</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <aside class="right-panel fade d4">
+    <div>
+      <div class="rp-title">Prayer Stats</div>
+      <div class="stat-row">
+        <div class="stat-mini"><div class="stat-num">83K</div><div class="stat-lbl">Total Prayers</div></div>
+        <div class="stat-mini"><div class="stat-num" style="color:var(--green2)">241</div><div class="stat-lbl">Answered</div></div>
+      </div>
+      <div class="stat-row">
+        <div class="stat-mini"><div class="stat-num">12</div><div class="stat-lbl">New Today</div></div>
+        <div class="stat-mini"><div class="stat-num" style="color:#E8A09B">38</div><div class="stat-lbl">My Prayers</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="rp-title">Answered Prayers</div>
+      <div class="card">
+        <div class="answered-item">
+          <div class="answered-badge">✓ Answered</div>
+          <div class="answered-text">"My daughter recovered fully from the accident."</div>
+          <div class="answered-meta">Sarah M. · 3 days ago</div>
+        </div>
+        <div class="answered-item">
+          <div class="answered-badge">✓ Answered</div>
+          <div class="answered-text">"Got the job I prayed about for 6 months."</div>
+          <div class="answered-meta">Emmanuel K. · 1 week ago</div>
+        </div>
+        <div class="answered-item">
+          <div class="answered-badge">✓ Answered</div>
+          <div class="answered-text">"My son got into university."</div>
+          <div class="answered-meta">Naomi R. · Today</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="rp-title">My Requests</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="card" style="border-left:2px solid var(--gold)">
+          <div style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:6px">Wisdom for a big decision at work next week.</div>
+          <div style="font-size:9px;color:var(--faint)">Posted 2 days ago · 14 praying</div>
+        </div>
+        <div class="card" style="border-left:2px solid var(--green)">
+          <div style="font-size:12px;color:var(--dim);line-height:1.6;margin-bottom:6px">Healing for my uncle who's been unwell.</div>
+          <div style="font-size:9px;color:var(--faint)">Posted 1 week ago · 29 praying</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+<script>
+  document.querySelectorAll('.type-pill').forEach(p=>p.addEventListener('click',()=>{document.querySelectorAll('.type-pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');}));
+  document.querySelectorAll('.tag-pill').forEach(p=>p.addEventListener('click',()=>{document.querySelectorAll('.tag-pill').forEach(x=>x.classList.remove('active'));p.classList.add('active');}));
+  document.querySelectorAll('.pc-btn').forEach(b=>b.addEventListener('click',()=>b.classList.toggle('on')));
+</script>
+</body>
+</html>

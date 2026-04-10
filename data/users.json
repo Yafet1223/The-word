@@ -8,5 +8,12 @@
     "id": 2,
     "name": "YAFET GETACHEW",
     "createdAt": 1775102376160
+  },
+  {
+    "id": 3,
+    "name": "Yafet",
+    "email": "yafetman44@gmail.com",
+    "password": "$2b$10$7RGYQ0WM.VhC58lIrtxKPOncw2Wmf1bQVuBC/BhCsBV1LzxAhXvtW",
+    "createdAt": 1775580184511
   }
 ]

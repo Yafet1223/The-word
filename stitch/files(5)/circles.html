@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>The Word — My Circles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    .circles-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; margin-bottom:28px; }
+    .circle-card {
+      background:var(--bg2); border:1px solid var(--border); border-radius:2px; padding:22px 20px;
+      cursor:pointer; transition:border-color .2s, transform .2s; position:relative; overflow:hidden;
+    }
+    .circle-card:hover { border-color:var(--border2); transform:translateY(-2px); }
+    .circle-card.joined { border-color:var(--green); }
+    .circle-card-icon { font-size:28px; margin-bottom:12px; }
+    .circle-card-name { font-family:var(--serif); font-size:18px; font-weight:700; color:var(--text); margin-bottom:5px; }
+    .circle-card-members { font-size:11px; color:var(--faint); margin-bottom:10px; }
+    .circle-card-desc { font-size:13px; color:var(--dim); line-height:1.7; margin-bottom:16px; }
+    .circle-card-footer { display:flex; align-items:center; justify-content:space-between; }
+    .joined-badge { font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--green2); background:rgba(126, 87, 46,.15); border:1px solid rgba(126, 87, 46,.3); padding:3px 9px; border-radius:1px; }
+    .circle-accent { position:absolute; bottom:0; left:0; right:0; height:2px; }
+
+    .member-row { display:flex; gap:-6px; }
+    .member-av { width:22px; height:22px; border-radius:50%; border:1px solid var(--bg); background:var(--border2); margin-left:-4px; font-family:var(--serif); font-size:8px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+    .member-av:first-child { margin-left:0; }
+  </style>
+  <script>if(!localStorage.getItem('authToken')) window.location.href = '../login.html';</script>
+</head>
+<body>
+<div class="shell no-right">
+  <header class="topbar">
+    <a href="index.html" class="topbar-logo"><div class="logo-dot"></div> The Word</a>
+    <div class="topbar-right">
+      <div class="streak-badge">🔥 7 Day Streak</div>
+      <div class="notif">🔔<div class="notif-dot"></div></div>
+      <div class="avatar-btn">YF</div>
+    </div>
+  </header>
+
+  <aside class="sidebar">
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Main</div>
+      <a class="nav-item" href="index.html"><span class="nav-icon">⌂</span> Home</a>
+      <a class="nav-item" href="scripture.html"><span class="nav-icon">📖</span> Scripture</a>
+      <a class="nav-item" href="prayer.html"><span class="nav-icon">🙏</span> Prayer Wall <span class="nav-badge">12</span></a>
+      <a class="nav-item" href="ai.html"><span class="nav-icon">◎</span> AI Companion</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div style="margin-bottom:20px">
+      <div class="nav-section-label">Community</div>
+      <a class="nav-item active" href="circles.html"><span class="nav-icon">⬡</span> My Circles</a>
+      <a class="nav-item" href="devotion.html"><span class="nav-icon">☽</span> Devotion Feed <span class="nav-badge">4</span></a>
+      <a class="nav-item" href="explore.html"><span class="nav-icon">✦</span> Explore</a>
+    </div>
+    <div class="nav-divider"></div>
+    <div>
+      <div class="nav-section-label">Personal</div>
+      <a class="nav-item" href="journal.html"><span class="nav-icon">◑</span> My Journal</a>
+      <a class="nav-item" href="settings.html"><span class="nav-icon">⚙</span> Settings</a>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-row">
+        <div class="avatar-btn" style="width:36px;height:36px;font-size:13px">YF</div>
+        <div><div class="user-info-name">Yafet</div><div class="user-info-role">Daily Devotion</div></div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-header fade d1">
+      <div class="page-label">Community</div>
+      <h1 class="page-h1">My <em>Circles.</em></h1>
+    </div>
+
+    <div class="fade d2" style="margin-bottom:20px">
+      <div class="section-label">Circles I've Joined</div>
+      <div class="circles-grid">
+        <div class="circle-card joined">
+          <div class="circle-card-icon">☽</div>
+          <div class="circle-card-name">Daily Devotion</div>
+          <div class="circle-card-members">341 members · 5 new posts</div>
+          <div class="circle-card-desc">Start every morning in the Word together. Share a verse, a reflection, or a simple thought.</div>
+          <div class="circle-card-footer">
+            <div class="member-row">
+              <div class="member-av" style="background:rgba(74,139,92,.3);color:#4A8B5C">GM</div>
+              <div class="member-av" style="background:rgba(122,92,58,.3);color:#7A5C3A">DK</div>
+              <div class="member-av" style="background:rgba(92,74,139,.3);color:#5C4A8B">MT</div>
+            </div>
+            <div class="joined-badge">✓ Joined</div>
+          </div>
+          <div class="circle-accent" style="background:var(--gold)"></div>
+        </div>
+
+        <div class="circle-card joined">
+          <div class="circle-card-icon">⬡</div>
+          <div class="circle-card-name">Prayer Warriors</div>
+          <div class="circle-card-members">217 members · 2 requests</div>
+          <div class="circle-card-desc">Dedicated to intercessory prayer. Post requests, pray for others, witness God move.</div>
+          <div class="circle-card-footer">
+            <div class="member-row">
+              <div class="member-av" style="background:rgba(155,48,96,.3);color:#9B3060">AF</div>
+              <div class="member-av" style="background:rgba(126, 87, 46,.3);color:#3A6B4A">NR</div>
+            </div>
+            <div class="joined-badge">✓ Joined</div>
+          </div>
+          <div class="circle-accent" style="background:var(--green)"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fade d3">
+      <div class="section-label">Discover More Circles</div>
+      <div class="circles-grid">
+        <div class="circle-card">
+          <div class="circle-card-icon">✦</div>
+          <div class="circle-card-name">New Believers</div>
+          <div class="circle-card-members">124 members</div>
+          <div class="circle-card-desc">A safe, welcoming space for those new to faith. No question is too small.</div>
+          <div class="circle-card-footer">
+            <button class="btn btn-ghost" style="font-size:9px;padding:5px 14px">Join Circle</button>
+          </div>
+          <div class="circle-accent" style="background:rgba(114, 91, 63,.3)"></div>
+        </div>
+
+        <div class="circle-card">
+          <div class="circle-card-icon">⌘</div>
+          <div class="circle-card-name">Youth & Faith</div>
+          <div class="circle-card-members">89 members</div>
+          <div class="circle-card-desc">Faith conversations for the younger generation. Current, real, and grounded in scripture.</div>
+          <div class="circle-card-footer">
+            <button class="btn btn-ghost" style="font-size:9px;padding:5px 14px">Join Circle</button>
+          </div>
+          <div class="circle-accent" style="background:rgba(217, 167, 119,.3)"></div>
+        </div>
+
+        <div class="circle-card">
+          <div class="circle-card-icon">◑</div>
+          <div class="circle-card-name">Bible Study</div>
+          <div class="circle-card-members">156 members</div>
+          <div class="circle-card-desc">Deep-dive passage studies every week. Currently working through the book of Romans.</div>
+          <div class="circle-card-footer">
+            <button class="btn btn-ghost" style="font-size:9px;padding:5px 14px">Join Circle</button>
+          </div>
+          <div class="circle-accent" style="background:rgba(92,74,139,.3)"></div>
+        </div>
+
+        <div class="circle-card">
+          <div class="circle-card-icon">◈</div>
+          <div class="circle-card-name">Worship & Music</div>
+          <div class="circle-card-members">203 members</div>
+          <div class="circle-card-desc">Share worship songs, lyrics that hit different, and music that draws you closer.</div>
+          <div class="circle-card-footer">
+            <button class="btn btn-ghost" style="font-size:9px;padding:5px 14px">Join Circle</button>
+          </div>
+          <div class="circle-accent" style="background:rgba(139,74,74,.3)"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>
