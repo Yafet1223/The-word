@@ -304,10 +304,24 @@
     addUserMsg(text);
     input.value = '';
     showTyping();
-    // Wire this to your Ollama backend:
-    // fetch('http://localhost:11434/api/generate', { method:'POST', body: JSON.stringify({ model:'llama3', prompt: text, stream:false }) })
-    //   .then(r => r.json()).then(d => { removeTyping(); addAiMsg(d.response); });
-    setTimeout(() => { removeTyping(); addAiMsg("I'm reflecting on that with you. Connect me to your Ollama backend at <code>localhost:11434</code> and I'll respond with scripture and guidance in real time."); }, 1400);
+    fetch('/ai/ask', { 
+      method: 'POST', 
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify({ prompt: text }) 
+    })
+    .then(r => r.json())
+    .then(d => { 
+      removeTyping(); 
+      if(d.response) {
+         addAiMsg(d.response.replace(/\n/g, '<br>'));
+      } else {
+         addAiMsg("I'm sorry, I encountered an error: " + (d.error || 'Server disconnected.'));
+      }
+    })
+    .catch(err => {
+      removeTyping();
+      addAiMsg("I'm sorry, the connection to the server was lost.");
+    });
   }
 
   function addUserMsg(text) {
